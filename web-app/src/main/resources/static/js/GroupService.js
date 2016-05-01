@@ -2,20 +2,21 @@
     'use strict';
     angular.module('springDataRestDemo')
         .service('GroupService', ['$q', '$resource', '$log', 'UserService', 'groupCache', function ($q, $resource, $log, UserService, groupCache) {
-            var Groups = $resource('/groups', {}, {
+            var Groups = $resource('/rest/groups', {}, {
                 list: {method: 'GET'},
                 create: {method: 'POST'}
             });
 
             function loadGroupOwner(group) {
                 var deferred = $q.defer();
-                var promise = UserService.loadUser(group._links._groupOwner.href);
+                var promise = UserService.loadUser(group._links.groupOwner.href);
                 promise.then(function (user) {
                     group._groupOwner = user;
                     group.groupOwner = user._links.self.href;
                     deferred.resolve(group);
                 }, function (response) {
                     $log.error('loadGroupOwner:failure:response:' + JSON.stringify(response, null, 2));
+                    group.groupOwner = undefined;
                     group._groupOwner = undefined;
                     deferred.reject(response);
                 });
@@ -55,7 +56,7 @@
                 loadAllGroups: function (loadOwners) {
                     var deferred = $q.defer();
                     Groups.list().$promise.then(function (groups) {
-                            var groups = groups._embedded.groups;
+                            var groups = groups._embedded.groupList;
                             if (loadOwners != undefined && loadOwners) {
                                 var promises = [];
                                 for (var g in groups) {

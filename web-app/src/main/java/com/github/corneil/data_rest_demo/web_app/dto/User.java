@@ -2,6 +2,7 @@ package com.github.corneil.data_rest_demo.web_app.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 
@@ -9,7 +10,17 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class User {
-
+    public static class UserResource extends Resource<User> {
+        public UserResource() {
+            super(new User());
+        }
+        public UserResource(User content, Iterable<Link> links) {
+            super(content, links);
+        }
+        public UserResource(User content, Link... links) {
+            super(content, links);
+        }
+    };
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
