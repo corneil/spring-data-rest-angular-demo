@@ -26,20 +26,23 @@ There are going to be times when some elements of an application is not part of 
 You may also need to build fragments that need to live in an unknown application. The application context path is not know when you create the html but you want the application to serve content based on the actual application context path.
 Thymeleaf provides for all the functions.
 
+== Persistent Model
+
+This diagram describes the entities of the persistent model.
+
+image:src/docs/images/spring-data-rest-demo-data-model.png[Data Model]
+
 == Components
 
 This diagram describe the various components involved.
 As a perfectly accurate UML component model this should have a lot more interfaces.
 A lot of the complexity has been collapse to show the essential relationships between the system components.
 
-image::src/docs/images/spring-data-rest-demo-components.png[Component Model]
+image::src/docs/images/spring-data-rest-demo-components-initial.png[Initial Component Model]
 
+== Refined Component Model
 
-== Persistent Model
-
-This diagram describes the entities of the persistent model.
-
-image:src/docs/images/spring-data-rest-demo-data-model.png[Data Model]
+image::src/docs/images/spring-data-rest-demo-components.png[Initial Component Model]
 
 == ToDo
 * [X] Delete User(s) with prompt indicating impact.
