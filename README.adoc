@@ -56,12 +56,14 @@ image::src/docs/images/spring-data-rest-demo-components.png[Initial Component Mo
 Checkout the project:
 `git clone https://github.com/corneil/spring-data-rest-angular-demo.git`
 
+=== Initial Project
 To run initial project:
 ```
 ./gradlew :initial:bootRun
 ```
 link:http://localhost:8080[]
 
+=== Data Service
 To run data-service project:
 ```
 ./gradlew :data-service:bootRun
@@ -72,7 +74,11 @@ To run web application:
 ```
 ./gradlew :web-app:bootRun
 ```
+=== Local Web Application
 link:http://localhost:8080[]
+
+=== Swagger UI
+link:http://localhost:8080/swagger-ui.html[]
 
 ++++
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=corneil%2eduplessis%40gmail%2ecom&lc=ZA&item_name=Corneil%20du%20Plessis&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted">

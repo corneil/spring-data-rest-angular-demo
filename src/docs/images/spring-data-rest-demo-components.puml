@@ -16,7 +16,7 @@ package "Data Service" {
 }
 
 package "Web Application" {
-    rest - [Rest API]
+    rest - [Rest Controllers]
     [MvcUserController] << controller >>
     [MvcGroupController] << controller >>
     () UserDataInterface - [UserDataService]
