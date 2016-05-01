@@ -65,6 +65,12 @@ To run data-service project:
 ```
 link:http://localhost:8888[]
 
+To run web application:
+```
+./gradlew :web-app:bootRun
+```
+link:http://localhost:8080[]
+
 ++++
 <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=corneil%2eduplessis%40gmail%2ecom&lc=ZA&item_name=Corneil%20du%20Plessis&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted">
 <img src="https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif"><img>
