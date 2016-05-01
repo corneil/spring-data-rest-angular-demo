@@ -1,7 +1,6 @@
 package com.github.corneil.data_rest_demo.web_app.service;
 
 import com.github.corneil.data_rest_demo.web_app.dto.Group;
-import com.github.corneil.data_rest_demo.web_app.dto.User;
 import com.github.corneil.data_rest_demo.web_app.util.RestHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,6 +17,8 @@ import org.springframework.web.client.RestTemplate;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import static org.springframework.hateoas.client.Hop.*;
 
 /**
  * Created by Corneil on 2016-05-01.
@@ -53,5 +54,13 @@ public class GroupDataService implements GroupDataInterface {
     @Override
     public Resources<Resource<Group>> findAll() {
         return getTraverson().follow("groups").toObject(groupsTypeRef);
+    }
+    @Override
+    public int countByGroupOwner(String userId) {
+        String response =
+                getTraverson().follow("groups").follow("search")
+                              .follow(rel("countByGroupOwner_UserId").withParameter("userId", userId))
+                              .toObject(String.class);
+        return Integer.parseInt(response);
     }
 }

@@ -24,7 +24,7 @@
                 $mdDialog.hide(user);
                 NotificationService.toastMessage($scope.newUser ? 'User Created' : 'User Saved');
             }, function (response) {
-                $log.error('Error response:' + response.status + ':' + response.statusText + ':' + JSON.stringify(response.data));
+                $log.warn('Error response:' + JSON.stringify(response, null, 2));
                 if (response.status == 409 && response.statusText == 'Conflict') {
                     $scope.userForm.userId.$setValidity('unique', false);
                 } else {
@@ -45,7 +45,7 @@
                 $scope.userSelected = 0;
                 $scope.users = null;
                 $scope.selectedUser = null;
-                $scope.iconStyle = {'medium-icons':$mdMedia('sm'), 'large-icons': $mdMedia('md'), 'x-large-icons': $mdMedia('gt-md')};
+                $scope.iconStyle = {'medium-icons': $mdMedia('sm'), 'large-icons': $mdMedia('md'), 'x-large-icons': $mdMedia('gt-md')};
                 $scope.promise = UserService.loadAllUsers();
                 $scope.promise.then(function (users) {
                     $log.debug('loaded ' + users.length + ' users');
@@ -64,7 +64,6 @@
                         var user = $scope.selected[u];
                         userMessage = userMessage + ' ' + user.userId + ' (' + user.fullName + ')';
                     }
-                    // TODO refactor so that dialog shows progress and remains open until completion.
                     var confirm = $mdDialog.confirm()
                         .title('Do you want to delete users?')
                         .textContent(userMessage)
@@ -90,8 +89,8 @@
                             $scope.selected = [];
                             NotificationService.toastMessage('Deleted ' + deleteCount + ' Users');
                         }, function (response) {
-                            $log.error('Deletion error:' + JSON.stringify(data, null, 2));
-                            NotificationService.toastError('Deletion incompleted: ' + data.statusLine, 'Close');
+                            $log.warn('Deletion error:' + JSON.stringify(response, null, 2));
+                            NotificationService.toastError('Deletion incompleted: ' + response.data.message, 'Close');
                         });
                     }, function () {
                         $log.debug('Cancelled dialog');
@@ -125,9 +124,9 @@
                             assertTrue(index >= 0, 'Could not find:' + user.userId + ' in ' + JSON.stringify($scope.users, null, 2));
                             $scope.users.splice(index, 1);
                             NotificationService.toastMessage('Deleted User:' + user.userId);
-                        }, function (data) {
-                            $log.error('Deletion error:' + JSON.stringify(data, null, 2));
-                            NotificationService.toastError('Deletion failed: ' + data.statusLine, 'Close');
+                        }, function (response) {
+                            $log.warn('Deletion error:' + JSON.stringify(response, null, 2));
+                            NotificationService.toastError('Deletion failed: ' + response.data.message, 'Close');
                         });
                     }, function () {
                         $log.debug('Cancelled deletion');

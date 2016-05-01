@@ -23,35 +23,6 @@
                 return deferred.promise;
             }
 
-            function deleteGroupMember(groupMemberRef) {
-                $log.info('deleteGroupMember:' + groupMemberRef);
-                return $resource(groupMemberRef).delete().$promise;
-            }
-
-            function deleteMembersForGroup(group) {
-                var deferred = $q.defer();
-                var promises = [];
-                var GroupMembers = $resource('/group-member/search/findByMemberOfgroup_GroupName?groupName=:groupName', {groupName: '@groupName'});
-                GroupMembers.get({groupName: group.groupName}).$promise.then(
-                    function (groups) {
-                        for (var i in groups._embedded.groupMembers) {
-                            var groupMember = groups._embedded.groupMembers[i];
-                            promises.push(deleteGroupMember(groups._embedded.groupMembers[i]._links.self.href));
-                        }
-                        $q.all(promises).then(function (data) {
-                            deferred.resolve(data);
-                        }, function (response) {
-                            $log.error('deleteMembersForGroup:failure:response:' + JSON.stringify(response, null, 2));
-                            deferred.reject(response);
-                        });
-                    }, function (response) {
-                        $log.error('deleteMembersForGroup:failure:response:' + JSON.stringify(response, null, 2));
-                        deferred.reject(response);
-                    }
-                );
-                return deferred.promise;
-            }
-
             return {
                 loadAllGroups: function (loadOwners) {
                     var deferred = $q.defer();
@@ -133,20 +104,15 @@
                 },
                 deleteGroup: function (group) {
                     var deferred = $q.defer();
-                    deleteMembersForGroup(group).then(function () {
-                        var Group = $resource(group._links.self.href);
-                        Group.delete().$promise.then(
-                            function (response) {
-                                groupCache.remove(group._links.self.href);
-                                deferred.resolve(response);
-                            }, function (response) {
-                                $log.error('deleteGroup:failure:response:' + JSON.stringify(response, null, 2));
-                                deferred.reject(response);
-                            });
-                    }, function (response) {
-                        $log.error('deleteGroup:failure:response:' + JSON.stringify(response, null, 2));
-                        deferred.reject(response);
-                    });
+                    var Group = $resource(group._links.self.href);
+                    Group.delete().$promise.then(
+                        function (response) {
+                            groupCache.remove(group._links.self.href);
+                            deferred.resolve(response);
+                        }, function (response) {
+                            $log.error('deleteGroup:failure:response:' + JSON.stringify(response, null, 2));
+                            deferred.reject(response);
+                        });
                     return deferred.promise;
                 }
             };

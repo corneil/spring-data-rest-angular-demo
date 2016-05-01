@@ -2,6 +2,7 @@ package com.github.corneil.data_rest_demo.web_app.service;
 
 import com.github.corneil.data_rest_demo.web_app.dto.Group;
 import com.github.corneil.data_rest_demo.web_app.dto.User;
+import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 
@@ -11,4 +12,5 @@ import org.springframework.hateoas.Resources;
 public interface GroupDataInterface {
     public String resourceId(Resource<Group> self);
     Resources<Resource<Group>> findAll();
+    int countByGroupOwner(String userId);
 }
