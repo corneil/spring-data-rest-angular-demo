@@ -1,0 +1,138 @@
+apply plugin: 'java'
+
+description = 'Common Web Resources'
+
+configurations {
+    svgIcons
+    webJarsBower
+}
+
+dependencies {
+
+    webJarsBower 'org.webjars.bower:angular'
+    webJarsBower 'org.webjars.bower:angular-route'
+    webJarsBower 'org.webjars.bower:angular-resource'
+    webJarsBower 'org.webjars.bower:angular-animate'
+    webJarsBower 'org.webjars.bower:angular-messages'
+    webJarsBower 'org.webjars.bower:angular-aria'
+    webJarsBower 'org.webjars.bower:angular-material'
+    webJarsBower 'org.webjars.bower:angular-gravatar'
+    webJarsBower 'org.webjars.bower:angular-material-data-table'
+    webJarsBower 'org.webjars.bower:moment'
+
+    svgIcons 'org.webjars:material-design-icons'
+}
+
+jar {
+    doFirst {
+        manifest {
+            attributes('Manifest-Version': '1.0',
+                    'Created-By': manifestVendor,
+                    'Specification-Title': description,
+                    'Specification-Version': version,
+                    'Specification-Vendor': manifestVendor,
+                    'Implementation-Title': description,
+                    'Implementation-Version': version,
+                    'Implementation-Vendor': manifestVendor
+            )
+        }
+    }
+}
+
+def svgIcons = new File(project.projectDir, 'extracted/svgIcons')
+task expandSvgIcons(type: Copy) {
+    doFirst {
+        svgIcons.mkdirs()
+    }
+    into svgIcons
+    configurations.svgIcons.resolve().each {
+        from zipTree(it.absoluteFile)
+        include '**/*24*.svg'
+        include '**/*black_24*.png'
+    }
+}
+
+
+def webJarsBower = new File(project.buildDir, 'webjarsBower')
+task expandWebJarsBower(type: Copy) {
+    into webJarsBower
+    configurations.webJarsBower.resolve().each {
+        from zipTree(it.absoluteFile)
+    }
+}
+def webJarsOutput = new File(sourceSets.main.output.resourcesDir, 'META-INF/resources/webjars')
+task copyWebJarsBower(type: Copy, dependsOn: expandWebJarsBower) {
+    // Copy to resources while removing version number and webjars from name
+    destinationDir = webJarsOutput
+    def depMap = [:]
+    def versionsMissing = false
+    configurations.webJarsBower.dependencies.each {
+        depMap.put(it.name, it.version != null ? it.version : 'N/A')
+        if(it.version == null) {
+            versionsMissing = true
+        }
+    }
+    if(versionsMissing) {
+        configurations.webJarsBower.resolve().each {
+            def name = it.name.substring(0, it.name.lastIndexOf('-'))
+            def version = it.name.substring(it.name.lastIndexOf('-') + 1, it.name.lastIndexOf('.'))
+            depMap.put(name, version)
+        }
+    }
+    depMap.each { entry ->
+        def targetDir = entry.key
+        def sourceDir = new File(webJarsBower, "META-INF/resources/webjars/$entry.key/$entry.value")
+        into(targetDir) {
+            from sourceDir
+        }
+    }
+}
+
+
+def extractName(String name, String suffix) {
+    if(name.endsWith(suffix)) {
+        return name - suffix
+    }
+    return null
+}
+
+task createSvgIconSets(dependsOn: expandSvgIcons) {
+    def baseDir = new File(svgIcons, 'META-INF/resources/webjars/material-design-icons/2.2.0')
+    def iconsDir = new File(projectDir, 'src/main/resources/META-INF/resources/webjars/iconsets/svg')
+    inputs.files fileTree(dir:baseDir, include:'**/svg/production/*.svg')
+    outputs.dir iconsDir
+    doLast {
+        iconsDir.mkdirs()
+        baseDir.eachDir { dir ->
+            def prodDir = new File(dir, 'svg/production')
+            if(prodDir.exists()) {
+                def inputTree = fileTree(dir:prodDir, include:'*.svg')
+                def iconSet = new File(iconsDir, "$dir.name-icons.svg")
+                if(!iconSet.exists()) {
+                    def writer = new FileWriter(iconSet)
+                    def pw = new PrintWriter(writer)
+                    pw << '<svg><defs>\n'
+                    def icons = new HashSet()
+                    def suffix = '_24px.svg'
+                    logger.info "$project.path:scanning:$prodDir for $suffix"
+                    inputTree.files.each { svg ->
+                        def name = extractName(svg.name, suffix)
+                        if (name && !icons.contains(name)) {
+                            icons.add(name)
+                            logger.info "${project.path}:adding ${svg.name} to ${iconSet.name}"
+                            def svgIcon = new XmlSlurper().parseText(svg.text)
+                            pw << "<g id='$name'><path d='${svgIcon.path.@d}'/></g>\n"
+                        }
+                    }
+                    pw << '</defs></svg>\n'
+                    writer.close()
+                    logger.lifecycle "$project.path:created:$iconSet.name"
+                }
+            }
+        }
+    }
+}
+
+
+
+processResources.dependsOn copyWebJarsBower

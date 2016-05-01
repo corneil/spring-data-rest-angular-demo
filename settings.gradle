@@ -1,0 +1,6 @@
+rootProject.name = 'spring-data-rest-angular-demo'
+
+include 'initial'
+include 'common-web'
+include 'data-service'
+include 'web-app'

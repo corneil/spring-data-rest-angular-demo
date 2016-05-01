@@ -1,0 +1,20 @@
+@startuml
+
+class UserInfo << entity >> {
+    userId: String
+    fullName: String
+    dateOfBirth: Date
+    emailAddress: String
+}
+class GroupInfo << entity >> {
+    groupName: String
+    description: String
+}
+class GroupMember << entity >> {
+    enabled: boolean
+}
+
+GroupMember -right-> GroupInfo: memberOfgroup
+GroupMember -up-> UserInfo: member
+
+@enduml

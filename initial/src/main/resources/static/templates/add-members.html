@@ -1,0 +1,35 @@
+<md-dialog aria-label="Add Members" ng-cloak flex-xs="100" flex-sm="80" flex-md="50" flex-gt-md="30" style="z-index: 110">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2>Add Members</h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="cancel()">
+				<md-icon md-svg-icon="navigation:ic_close" aria-label="Close dialog"></md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content class="md-dialog-content">
+		<md-progress-linear ng-show="busy" md-mode="query"></md-progress-linear>
+		<label>Group</label>
+		<em ng-bind="selectedGroup.description"></em>
+		<md-chips ng-model="selectedUsers" md-autocomplete-snap md-transform-chip="transformChip($chip)" md-require-match="true">
+			<md-autocomplete md-autofocus
+			                 md-selected-item="selectedUser"
+			                 md-search-text="searchText"
+			                 md-min-length="2"
+			                 md-delay="150"
+			                 md-items="user in queryMemberSearch(searchText)"
+			                 md-item-text="user.userId"
+			                 placeholder="Search for a users">
+				<span md-highlight-text="searchText">{{user.userId}} ({{user.fullName}})</span>
+			</md-autocomplete>
+			<md-chip-template>
+				<span><strong ng-bind="$chip.userId"></strong><em ng-bind="' (' + $chip.fullName + ')'"></em></span>
+			</md-chip-template>
+		</md-chips>
+	</md-dialog-content>
+	<md-dialog-actions>
+		<md-button class="md-primary" ng-disabled="selectedUsers == null || selectedUsers.length==0" ng-click="save()">Save</md-button>
+		<md-button class="md-primary" ng-click="cancel()">Cancel</md-button>
+	</md-dialog-actions>
+</md-dialog>

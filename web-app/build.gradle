@@ -1,0 +1,74 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse-wtp'
+apply plugin: 'spring-boot'
+
+configurations {
+    providedRuntime
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+jar {
+    doFirst {
+        manifest {
+            attributes('Manifest-Version': '1.0',
+                    'Created-By': manifestVendor,
+                    'Specification-Title': description,
+                    'Specification-Version': version,
+                    'Specification-Vendor': manifestVendor,
+                    'Implementation-Title': description,
+                    'Implementation-Version': version,
+                    'Implementation-Vendor': manifestVendor
+            )
+        }
+    }
+}
+
+dependencies {
+    compile project(':common-web')
+    compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    compile 'net.sourceforge.nekohtml:nekohtml'
+
+    compile 'org.springframework.boot:spring-boot-starter-hateoas'
+    compile 'org.springframework.boot:spring-boot-devtools'
+    compile 'org.projectlombok:lombok'
+    compile 'javax.el:javax.el-api'
+    compile 'io.springfox:springfox-swagger2'
+    compile 'io.springfox:springfox-swagger-ui'
+    compile 'com.jayway.jsonpath:json-path'
+    compile 'com.jayway.jsonpath:json-path-assert'
+
+
+
+
+    runtime 'com.h2database:h2'
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc'
+}
+
+bootRepackage {
+    mainClass = 'com.github.corneil.data_rest_demo.web_app.SpringDataRestAngularDemoApplication'
+}
+
+bootRun {
+    addResources = true
+}
+
+eclipse {
+    classpath {
+        containers.remove 'org.eclipse.jdt.launching.JRE_CONTAINER'
+        containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8'
+    }
+}
+
+
+task cleanTestJpa(type: Delete) {
+    delete fileTree('.') {
+        include 'demo-rest.*db'
+    }
+}
+
+cleanTest.dependsOn cleanTestJpa
