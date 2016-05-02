@@ -1,6 +1,7 @@
 var mainMenu = [
     {
         name: 'users', title: 'Users',
+        type:'svg',
         icon: 'social:ic_person',
         href: '/users',
         templateName: 'templates/users.html',
@@ -9,6 +10,7 @@ var mainMenu = [
     {
         name: 'groups',
         title: 'Groups',
+        type:'svg',
         icon: 'social:ic_people',
         href: '/groups',
         templateName: 'templates/groups.html',
@@ -17,6 +19,7 @@ var mainMenu = [
     {
         name: 'members',
         title: 'Members',
+        type:'svg',
         icon: 'social:ic_person_add',
         href: '/members',
         templateName: 'templates/members.html',
@@ -25,6 +28,7 @@ var mainMenu = [
     {
         name: 'themes',
         title: 'Themes',
+        type:'svg',
         icon: 'image:ic_color_lens',
         href: '/themes',
         templateName: 'templates/themes.html',
@@ -33,8 +37,18 @@ var mainMenu = [
 ];
 var adminMenu = [
     {
+        name: 'swagger',
+        title: 'Swagger',
+        type:'img',
+        icon: 'swagger-logo.png',
+        href: '/admin/swagger',
+        templateName: 'templates/swagger.html',
+        controller: 'NavController'
+    },
+    {
         name: 'halBrower',
         title: 'HAL Browser',
+        type:'svg',
         icon: 'social:ic_domain',
         href: '/admin/hal-browser',
         templateName: 'templates/hal-browser.html',
@@ -43,6 +57,7 @@ var adminMenu = [
     {
         name: 'h2Console',
         title: 'H2 Console',
+        type:'svg',
         icon: 'action:ic_dashboard',
         href: '/admin/h2-console',
         templateName: 'templates/h2-console.html',
