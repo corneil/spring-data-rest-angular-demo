@@ -16,13 +16,15 @@ package "Data Service" {
 }
 
 package "Web Application" {
-    rest - [Rest Controllers]
+    rest - [RestController]
     [MvcUserController] << controller >>
     [MvcGroupController] << controller >>
     () UserDataInterface - [UserDataService]
     () GroupDataInterface - [GroupDataService]
     [MvcUserController] -down-> UserDataInterface
     [MvcGroupController] -down-> GroupDataInterface
+    [MvcUserController] .up.> [RestController] : isA
+    [MvcGroupController] .up.> [RestController] : isA
     [UserDataService] -> dataRest
     [GroupDataService] -> dataRest
 }
