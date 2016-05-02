@@ -39,12 +39,14 @@ public class UserController extends AbstractRestExceptionHandler {
     }
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<Resource<User>> create(@RequestBody User user) throws URISyntaxException {
+        logger.debug("create:{}", user);
         Resource<User> response = userData.create(user);
         Resource<User> result = createUserResource(response);
         return ResponseEntity.ok(result);
     }
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> delete(@PathVariable String id) throws URISyntaxException {
+        logger.debug("delete:{}", id);
         Resource<User> user = userData.load(id);
         int count = groupData.countByGroupOwner(user.getContent().getUserId());
         if (count > 0) {
@@ -57,8 +59,8 @@ public class UserController extends AbstractRestExceptionHandler {
     }
     @RequestMapping(path = "/find/{input}", method = RequestMethod.GET)
     public ResponseEntity<Resources<Resource<User>>> find(@PathVariable String input) throws URISyntaxException {
+        logger.debug("find:{}", input);
         Resources<Resource<User>> response = userData.find(input);
-        logger.debug("response:{}", response);
         List<Resource<User>> content = new ArrayList<Resource<User>>();
         Link link = linkTo(UserController.class).withRel("users");
         for (Resource<User> user : response.getContent()) {
@@ -73,7 +75,8 @@ public class UserController extends AbstractRestExceptionHandler {
         return new Resource<User>(user.getContent(), linkTo(UserController.class).slash(id).withSelfRel());
     }
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Resources<Resource<User>>> listAll() throws URISyntaxException {
+    public ResponseEntity<Resources<Resource<User>>> findAll() throws URISyntaxException {
+        logger.debug("findAll");
         Resources<Resource<User>> response = userData.findAll();
         List<Resource<User>> content = new ArrayList<Resource<User>>();
         for (Resource<User> user : response.getContent()) {
@@ -87,6 +90,7 @@ public class UserController extends AbstractRestExceptionHandler {
     }
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Resource<User>> load(@PathVariable String id) throws URISyntaxException {
+        logger.debug("load:{}", id);
         Resource<User> user = userData.load(id);
         String resId = userData.resourceId(user);
         Link selfRel = linkTo(UserController.class).slash(resId).withSelfRel();
@@ -95,6 +99,7 @@ public class UserController extends AbstractRestExceptionHandler {
     }
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Resource<User>> save(@PathVariable String id, @RequestBody Resource<User> user) throws URISyntaxException {
+        logger.debug("save:{},{}", id, user);
         Resource<User> response = userData.save(id, user);
         Resource<User> result = createUserResource(response);
         return ResponseEntity.ok(result);

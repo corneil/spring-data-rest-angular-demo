@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.LinkBuilder;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpEntity;
@@ -20,7 +19,7 @@ import static org.springframework.hateoas.client.Hop.*;
  * Created by Corneil on 2016-05-01.
  */
 @Service("groupDataService")
-public class GroupDataService extends AbstractDataService implements GroupDataInterface  {
+public class GroupDataService extends AbstractDataService implements GroupDataInterface {
     private static ParameterizedTypeReference<Resources<Resource<Group>>>
             groupsTypeRef =
             new ParameterizedTypeReference<Resources<Resource<Group>>>() {
@@ -31,8 +30,10 @@ public class GroupDataService extends AbstractDataService implements GroupDataIn
     @Override
     public int countByGroupOwner(String userId) {
         logger.debug("countByGroupOwner:{}", userId);
-        String response =
-                getTraverson().follow("groups").follow("search")
+        String
+                response =
+                getTraverson().follow("groups")
+                              .follow("search")
                               .follow(rel("countByGroupOwner_UserId").withParameter("userId", userId))
                               .toObject(String.class);
         return Integer.parseInt(response);
@@ -51,7 +52,10 @@ public class GroupDataService extends AbstractDataService implements GroupDataIn
     }
     @Override
     public Resource<Group> find(String groupName) {
-        return getTraverson().follow("groups").follow(rel("search")).follow(rel("findOneByGroupName").withParameter("groupName", groupName)).toObject(groupTypeRef);
+        return getTraverson().follow("groups")
+                             .follow(rel("search"))
+                             .follow(rel("findOneByGroupName").withParameter("groupName", groupName))
+                             .toObject(groupTypeRef);
     }
     @Override
     public Resources<Resource<Group>> findAll() {
@@ -62,6 +66,10 @@ public class GroupDataService extends AbstractDataService implements GroupDataIn
         String url = getTraverson().follow("groups").asLink().getHref();
         ResponseEntity<Resource<Group>> response = dataServiceClient.exchange(url + "/" + id, HttpMethod.GET, null, groupTypeRef);
         return response.getBody();
+    }
+    @Override
+    public String resourceLink(String id) {
+        return getTraverson().follow("groups").asLink().getHref() + "/" + id;
     }
     @Override
     public String resourceId(Link selfRel) {

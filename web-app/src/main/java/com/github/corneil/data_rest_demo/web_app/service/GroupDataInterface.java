@@ -16,6 +16,7 @@ public interface GroupDataInterface {
     Resource<Group> find(String groupName);
     Resources<Resource<Group>> findAll();
     Resource<Group> load(String id);
+    String resourceLink(String id);
     String resourceId(Link selfRel);
     String resourceId(Resource<Group> self);
     Resource<Group> save(String id, Resource<Group> user);

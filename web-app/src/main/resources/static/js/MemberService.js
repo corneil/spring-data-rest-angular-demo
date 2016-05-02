@@ -41,7 +41,7 @@
 
             function loadAndAddUser(groupMember) {
                 var deferred = $q.defer();
-                UserService.loadUser(groupMember._member._links._member.href).then(function (user) {
+                UserService.loadUser(groupMember._member._links.groupMember.href).then(function (user) {
                     updateMember(user, groupMember);
                     deferred.resolve(groupMember);
                 },
@@ -58,7 +58,7 @@
                     var MembersForGroup = $resource('/rest/members/search?groupName=:groupName', {groupName: '@groupName'});
                     MembersForGroup.get({groupName: group.groupName}).$promise.then(function (groupMembers) {
                         group.members = [];
-                        var members = groupMembers._embedded.groupMembers;
+                        var members = groupMembers._embedded.groupMemberList;
                         for (var index in members) {
                             var member = members[index];
                             var deferredMember = makeDeferredMember(member);

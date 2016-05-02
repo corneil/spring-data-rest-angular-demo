@@ -60,7 +60,8 @@ public class GroupController extends AbstractRestExceptionHandler {
         return result;
     }
     @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Resources<Resource<Group>>> listAll() {
+    public ResponseEntity<Resources<Resource<Group>>> findAll() {
+        logger.debug("findAll");
         Resources<Resource<Group>> response = groupData.findAll();
         List<Resource<Group>> content = new ArrayList<Resource<Group>>();
         for (Resource<Group> group : response.getContent()) {
@@ -70,11 +71,13 @@ public class GroupController extends AbstractRestExceptionHandler {
     }
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Resource<Group>> load(@PathVariable String id) {
+        logger.debug("load:{}", id);
         Resource<Group> response = groupData.load(id);
         return ResponseEntity.ok(createGroupResource(response));
     }
     @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Resource<Group>> save(@PathVariable String id, @RequestBody Resource<Group> group) {
+        logger.debug("save:{},{}", id, group);
         Assert.hasText(group.getContent().getGroupOwner());
         String groupOwnerId = RestHelper.resourceId(group.getContent().getGroupOwner(), linkTo(UserController.class).toUri().toString());
         group.getContent().setGroupOwner(userData.resourceLink(groupOwnerId));
