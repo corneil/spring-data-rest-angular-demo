@@ -17,14 +17,14 @@ package "Data Service" {
 
 package "Web Application" {
     rest - [RestController]
-    [MvcUserController] << controller >>
-    [MvcGroupController] << controller >>
+    [Rest UserController] << controller >>
+    [Rest GroupController] << controller >>
     () UserDataInterface - [UserDataService]
     () GroupDataInterface - [GroupDataService]
-    [MvcUserController] -down-> UserDataInterface
-    [MvcGroupController] -down-> GroupDataInterface
-    [MvcUserController] .up.> [RestController] : isA
-    [MvcGroupController] .up.> [RestController] : isA
+    [Rest UserController] -down-> UserDataInterface
+    [Rest GroupController] -down-> GroupDataInterface
+    [Rest UserController] .up.> [RestController] : isA
+    [Rest GroupController] .up.> [RestController] : isA
     [UserDataService] -> dataRest
     [GroupDataService] -> dataRest
 }
@@ -32,24 +32,24 @@ package "Web Application" {
 package "AngularJS UI" {
     [NavController] << controller >>
     [NotificationService] << service >>
-    [AngularUserController] << controller >>
+    [Angular UserController] << controller >>
     [UserService] << service >>
     [UserDialogController] << controller >>
-    [AngularUserController] -down-> [UserService]
-    [AngularUserController] -down-> [NotificationService]
+    [Angular UserController] -down-> [UserService]
+    [Angular UserController] -down-> [NotificationService]
     [UserDialogController] -down-> [UserService]
     [UserService] -right-> rest : http
-    [AngularGroupController] << controller >>
+    [Angular GroupController] << controller >>
     [GroupService] << service >>
     [GroupDialogController] << controller >>
     [GroupDialogController] -down-> [UserService]
-    [AngularGroupController] -down-> [GroupService]
-    [AngularGroupController] -down-> [NotificationService]
+    [Angular GroupController] -down-> [GroupService]
+    [Angular GroupController] -down-> [NotificationService]
     [GroupDialogController] -down-> [GroupService]
     [GroupService] -left-> rest : http
-    [AngularMemberController] -down-> [MemberService]
-    [AngularMemberController] -> [NotificationService]
-    [AngularMemberController] -down-> [UserService]
+    [Angular MemberController] -down-> [MemberService]
+    [Angular MemberController] -> [NotificationService]
+    [Angular MemberController] -down-> [UserService]
     [MemberService] -> rest : http
 }
 
