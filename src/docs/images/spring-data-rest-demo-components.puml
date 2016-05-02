@@ -35,16 +35,16 @@ package "AngularJS UI" {
     [AngularUserController] << controller >>
     [UserService] << service >>
     [UserDialogController] << controller >>
-    [UserController] -down-> [UserService]
-    [UserController] -down-> [NotificationService]
+    [AngularUserController] -down-> [UserService]
+    [AngularUserController] -down-> [NotificationService]
     [UserDialogController] -down-> [UserService]
     [UserService] -right-> rest : http
     [AngularGroupController] << controller >>
     [GroupService] << service >>
     [GroupDialogController] << controller >>
     [GroupDialogController] -down-> [UserService]
-    [GroupController] -down-> [GroupService]
-    [GroupController] -down-> [NotificationService]
+    [AngularGroupController] -down-> [GroupService]
+    [AngularGroupController] -down-> [NotificationService]
     [GroupDialogController] -down-> [GroupService]
     [GroupService] -left-> rest : http
     [AngularMemberController] -down-> [MemberService]
