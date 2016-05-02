@@ -36,6 +36,31 @@ eclipse {
     }
 }
 
+// Thanks to http://mrhaki.blogspot.co.za/2016/03/gradle-goodness-enable-compiler.html
+idea {
+    project {
+        ipr {
+            withXml { provider ->
+                // Get XML as groovy.util.Node to work with.
+                def projectXml = provider.asNode()
+                // Find compiler configuration component.
+                def compilerConfiguration = projectXml.component.find { component ->
+                    component.'@name' == 'CompilerConfiguration'
+                }
+                // Replace current annotationProcessing
+                // that is part of the compiler configuration.
+                def currentAnnotationProcessing = compilerConfiguration.annotationProcessing
+                currentAnnotationProcessing.replaceNode {
+                    annotationProcessing {
+                        profile(name: 'Default', default: true, enabled: true) {
+                            processorPath(useClasspath: true)
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 task wrapper(type: Wrapper) {
     gradleVersion = '2.12'
 }

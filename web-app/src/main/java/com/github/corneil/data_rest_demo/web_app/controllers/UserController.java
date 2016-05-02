@@ -31,51 +31,16 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 public class UserController extends AbstractRestExceptionHandler {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     @Autowired
-    protected UserDataInterface userData;
-    @Autowired
     protected GroupDataInterface groupData;
+    @Autowired
+    protected UserDataInterface userData;
     public UserController() {
         super(logger);
     }
-    @RequestMapping(method = RequestMethod.GET)
-    public ResponseEntity<Resources<Resource<User>>> listAll() throws URISyntaxException {
-        Resources<Resource<User>> response = userData.findAll();
-        List<Resource<User>> content = new ArrayList<Resource<User>>();
-        for (Resource<User> user : response.getContent()) {
-            String id = userData.resourceId(user);
-            Link selfRel = linkTo(UserController.class).slash(id).withSelfRel();
-            content.add(new Resource<User>(user.getContent(), selfRel));
-        }
-        Link usersRel = linkTo(UserController.class).withRel("users");
-        Resources<Resource<User>> result = new Resources<>(content, usersRel);
-        return ResponseEntity.ok(result);
-    }
-    @RequestMapping(path = "/find/{input}", method = RequestMethod.GET)
-    public ResponseEntity<Resources<Resource<User>>> find(@PathVariable String input) throws URISyntaxException {
-        Resources<Resource<User>> response = userData.find(input);
-        logger.debug("response:{}", response);
-        List<Resource<User>> content = new ArrayList<Resource<User>>();
-        Link link = linkTo(UserController.class).withRel("users");
-        for (Resource<User> user : response.getContent()) {
-            String id = userData.resourceId(user);
-            Resource<User> item = new Resource<User>(user.getContent(), linkTo(UserController.class).slash(id).withSelfRel());
-            content.add(item);
-        }
-        Resources<Resource<User>> result = new Resources<Resource<User>>(content, link);
-        return ResponseEntity.ok(result);
-    }
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<Resource<User>> add(@RequestBody User user) throws URISyntaxException {
+    public ResponseEntity<Resource<User>> create(@RequestBody User user) throws URISyntaxException {
         Resource<User> response = userData.create(user);
-        String id = userData.resourceId(response);
-        Resource<User> result = new Resource<User>(response.getContent(), linkTo(UserController.class).slash(id).withSelfRel());
-        return ResponseEntity.ok(result);
-    }
-    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Resource<User>> save(@PathVariable String id, @RequestBody Resource<User> user) throws URISyntaxException {
-        Resource<User> response = userData.save(id, user);
-        String resId = userData.resourceId(response);
-        Resource<User> result = new Resource<User>(response.getContent(), linkTo(UserController.class).slash(resId).withSelfRel());
+        Resource<User> result = createUserResource(response);
         return ResponseEntity.ok(result);
     }
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
@@ -90,12 +55,48 @@ public class UserController extends AbstractRestExceptionHandler {
         userData.delete(id);
         return ResponseEntity.ok(null);
     }
+    @RequestMapping(path = "/find/{input}", method = RequestMethod.GET)
+    public ResponseEntity<Resources<Resource<User>>> find(@PathVariable String input) throws URISyntaxException {
+        Resources<Resource<User>> response = userData.find(input);
+        logger.debug("response:{}", response);
+        List<Resource<User>> content = new ArrayList<Resource<User>>();
+        Link link = linkTo(UserController.class).withRel("users");
+        for (Resource<User> user : response.getContent()) {
+            Resource<User> item = createUserResource(user);
+            content.add(item);
+        }
+        Resources<Resource<User>> result = new Resources<Resource<User>>(content, link);
+        return ResponseEntity.ok(result);
+    }
+    private Resource<User> createUserResource(Resource<User> user) {
+        String id = userData.resourceId(user);
+        return new Resource<User>(user.getContent(), linkTo(UserController.class).slash(id).withSelfRel());
+    }
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<Resources<Resource<User>>> listAll() throws URISyntaxException {
+        Resources<Resource<User>> response = userData.findAll();
+        List<Resource<User>> content = new ArrayList<Resource<User>>();
+        for (Resource<User> user : response.getContent()) {
+            String id = userData.resourceId(user);
+            Link selfRel = linkTo(UserController.class).slash(id).withSelfRel();
+            content.add(new Resource<User>(user.getContent(), selfRel));
+        }
+        Link usersRel = linkTo(UserController.class).withRel("users");
+        Resources<Resource<User>> result = new Resources<>(content, usersRel);
+        return ResponseEntity.ok(result);
+    }
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<Resource<User>> load(@PathVariable String id) throws URISyntaxException {
         Resource<User> user = userData.load(id);
         String resId = userData.resourceId(user);
         Link selfRel = linkTo(UserController.class).slash(resId).withSelfRel();
         Resource<User> result = new Resource<User>(user.getContent(), selfRel);
+        return ResponseEntity.ok(result);
+    }
+    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Resource<User>> save(@PathVariable String id, @RequestBody Resource<User> user) throws URISyntaxException {
+        Resource<User> response = userData.save(id, user);
+        Resource<User> result = createUserResource(response);
         return ResponseEntity.ok(result);
     }
 }

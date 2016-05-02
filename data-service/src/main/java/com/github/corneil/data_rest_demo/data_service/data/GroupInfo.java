@@ -1,4 +1,4 @@
-package com.github.corneil.data_rest_demo.initial.data;
+package com.github.corneil.data_rest_demo.data_service.data;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

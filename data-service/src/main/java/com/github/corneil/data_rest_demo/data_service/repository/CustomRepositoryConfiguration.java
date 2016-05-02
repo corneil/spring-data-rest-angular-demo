@@ -1,14 +1,16 @@
-package com.github.corneil.data_rest_demo.initial.repository;
+package com.github.corneil.data_rest_demo.data_service.repository;
 
-import com.github.corneil.data_rest_demo.initial.data.GroupInfo;
-import com.github.corneil.data_rest_demo.initial.data.GroupMember;
-import com.github.corneil.data_rest_demo.initial.data.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceProcessor;
+
+import com.github.corneil.data_rest_demo.data_service.data.GroupInfo;
+import com.github.corneil.data_rest_demo.data_service.data.GroupMember;
+import com.github.corneil.data_rest_demo.data_service.data.UserInfo;
+
 
 /**
  * Created by Corneil on 2016/04/18.

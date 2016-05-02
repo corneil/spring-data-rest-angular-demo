@@ -13,6 +13,10 @@ import java.util.List;
 
 @SpringBootApplication
 public class SpringDataRestAngularDemoApplication extends SpringBootServletInitializer {
+    public static void main(String[] args) {
+        // Start the application
+        SpringApplication.run(SpringDataRestAngularDemoApplication.class, args);
+    }
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(SpringDataRestAngularDemoApplication.class);
@@ -25,9 +29,5 @@ public class SpringDataRestAngularDemoApplication extends SpringBootServletIniti
         urlPatterns.add("/rest/*");
         registrationBean.setUrlPatterns(urlPatterns);
         return registrationBean;
-    }
-    public static void main(String[] args) {
-        // Start the application
-        SpringApplication.run(SpringDataRestAngularDemoApplication.class, args);
     }
 }

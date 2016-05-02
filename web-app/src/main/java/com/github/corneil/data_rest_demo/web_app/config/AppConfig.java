@@ -11,6 +11,12 @@ import org.springframework.web.client.RestTemplate;
 @ComponentScan(basePackages = {"com.github.corneil.data_rest_demo.web_app"})
 public class AppConfig {
 
+    @Bean(name="dataServiceClient")
+    public RestTemplate dataServiceClient() {
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate;
+    }
+
     @Bean
     public MethodValidationPostProcessor methodValidationPostProcessor() {
         return new MethodValidationPostProcessor();
@@ -19,11 +25,5 @@ public class AppConfig {
     @Bean(name = "validator")
     public LocalValidatorFactoryBean validatorFactoryBean() {
         return new LocalValidatorFactoryBean();
-    }
-
-    @Bean(name="dataServiceClient")
-    public RestTemplate dataServiceClient() {
-        RestTemplate restTemplate = new RestTemplate();
-        return restTemplate;
     }
 }

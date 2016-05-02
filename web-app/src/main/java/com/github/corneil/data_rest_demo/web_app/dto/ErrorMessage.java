@@ -13,11 +13,11 @@ import lombok.ToString;
 public class ErrorMessage {
     private String message;
     private String stackTrace;
-    public ErrorMessage(String message, String stackTrace) {
-        this.message = message;
-        this.stackTrace = stackTrace;
-    }
     public ErrorMessage(String message) {
         this.message = message;
     }
+    public ErrorMessage(String message, String stackTrace) {
+        this.message = message;
+        this.stackTrace = stackTrace;
+    }    
 }

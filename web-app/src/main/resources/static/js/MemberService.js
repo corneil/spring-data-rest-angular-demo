@@ -2,7 +2,7 @@
     'use strict';
     angular.module('springDataRestDemo').service('MemberService', ['$q', '$resource', '$log', 'UserService', 'GroupService',
         function ($q, $resource, $log, UserService, GroupService) {
-            var GroupMembers = $resource('/group-member', {}, {
+            var GroupMembers = $resource('/rest/members', {}, {
                 create: {method: 'POST'},
                 list: {method: 'GET'}
             });
@@ -55,7 +55,7 @@
             function loadGroupMembers(group) {
                 var memberList = $q.defer();
                 if(group.members == undefined || group.members == null) {
-                    var MembersForGroup = $resource('/group-member/search/findByMemberOfgroup_GroupName?groupName=:groupName', {groupName: '@groupName'});
+                    var MembersForGroup = $resource('/rest/members/search?groupName=:groupName', {groupName: '@groupName'});
                     MembersForGroup.get({groupName: group.groupName}).$promise.then(function (groupMembers) {
                         group.members = [];
                         var members = groupMembers._embedded.groupMembers;

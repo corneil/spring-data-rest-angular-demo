@@ -15,6 +15,7 @@ public interface UserDataInterface {
     Resources<Resource<User>> findAll();
     Resource<User> load(String id);
     String resourceId(Link self);
+    String resourceLink(String id);
     String resourceId(Resource<User> self);
     Resource<User> save(String id, Resource<User> user);
 }

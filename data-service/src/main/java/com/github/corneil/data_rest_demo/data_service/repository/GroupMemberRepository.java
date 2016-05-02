@@ -1,11 +1,13 @@
-package com.github.corneil.data_rest_demo.initial.repository;
+package com.github.corneil.data_rest_demo.data_service.repository;
 
-import com.github.corneil.data_rest_demo.initial.data.GroupMember;
+
+import java.util.List;
+
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-import java.util.List;
+import com.github.corneil.data_rest_demo.data_service.data.GroupMember;
 
 @RepositoryRestResource(collectionResourceRel = "groupMembers", itemResourceRel = "groupMember", path = "group-member")
 public interface GroupMemberRepository extends CrudRepository<GroupMember, Long> {

@@ -20,13 +20,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 public class WebApplicationConfiguration extends WebMvcConfigurerAdapter {
     private final static Logger logger = LoggerFactory.getLogger(WebApplicationConfiguration.class);
     @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/error").setViewName("error");
-        registry.addViewController("/").setViewName("index");
-        registry.addRedirectViewController("/api", "/swagger-ui.html");
-        logger.info("addViewControllers:{}", registry.toString());
-    }
-    @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/css/**").addResourceLocations("classpath:/static/css/");
         registry.addResourceHandler("/js/**").addResourceLocations("classpath:/static/js/");
@@ -37,5 +30,12 @@ public class WebApplicationConfiguration extends WebMvcConfigurerAdapter {
 
         registry.addResourceHandler("/webjars/**")
                 .addResourceLocations("classpath:/META-INF/resources/webjars/");
+    }
+    @Override
+    public void addViewControllers(ViewControllerRegistry registry) {
+        registry.addViewController("/error").setViewName("error");
+        registry.addViewController("/").setViewName("index");
+        registry.addRedirectViewController("/api", "/swagger-ui.html");
+        logger.info("addViewControllers:{}", registry.toString());
     }
 }

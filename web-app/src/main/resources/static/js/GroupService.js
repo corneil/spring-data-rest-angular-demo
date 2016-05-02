@@ -68,12 +68,15 @@
                     var deferred = $q.defer();
                     var savedOwner = group._groupOwner;
                     group.groupOwner = savedOwner._links.self.href;
-                    Groups.create(group).$promise.then(
-                        function (group) {
-                            loadGroupOwner(group).then(function (g) {
-                                g._groupOwner = savedOwner;
-                                g.groupOwner = savedOwner._links.self.href;
-                                deferred.resolve(g);
+                    Groups.create({groupName: group.groupName,
+                        description: group.description,
+                        groupOwner: group.groupOwner}
+                    ).$promise.then(
+                        function (saved) {
+                            loadGroupOwner(saved).then(function (loaded) {
+                                loaded._groupOwner = savedOwner;
+                                loaded.groupOwner = savedOwner._links.self.href;
+                                deferred.resolve(loaded);
                             }, function (response) {
                                 deferred.reject(response);
                             });
@@ -89,7 +92,12 @@
                     var savedOwner = group._groupOwner;
                     group.groupOwner = savedOwner._links.self.href;
                     var Group = $resource(group._links.self.href, {}, {save: {method: 'PUT'}});
-                    Group.save(group).$promise.then(
+                    Group.save({
+                        groupName: group.groupName,
+                        description: group.description,
+                        groupOwner: group.groupOwner,
+                        _links: group._links
+                    }).$promise.then(
                         function (saved) {
                             groupCache.remove(saved._links.self.href);
                             saved._groupOwner = savedOwner;

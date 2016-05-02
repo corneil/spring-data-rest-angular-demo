@@ -13,10 +13,10 @@ public interface GroupDataInterface {
     int countByGroupOwner(String userId);
     Resource<Group> create(Group user);
     void delete(String id);
+    Resource<Group> find(String groupName);
     Resources<Resource<Group>> findAll();
     Resource<Group> load(String id);
-    Resource<Group> find(String groupName);
     String resourceId(Link selfRel);
     String resourceId(Resource<Group> self);
-    void save(Group user);
+    Resource<Group> save(String id, Resource<Group> user);
 }
