@@ -71,4 +71,11 @@ public class GroupMemberService extends AbstractDataService implements GroupMemb
         // TODO process status
         return response.getBody();
     }
+    @Override
+    public Resource<GroupMember> patch(String id, GroupMember member) {
+        String url = getTraverson().follow(rel("groupMembers")).asLink().getHref();
+        HttpEntity<GroupMember> request = new HttpEntity<GroupMember>(member);
+        ResponseEntity<Resource<GroupMember>> response = dataServiceClient.exchange(url + "/" + id, HttpMethod.PATCH, request, memberTypeRef);
+        return response.getBody();
+    }
 }

@@ -14,5 +14,6 @@ public interface GroupMemberInterface {
     String resourceId(Resource<GroupMember> member);
     String resourceLink(String id);
     Resource<GroupMember> save(String id, Resource<GroupMember> member);
+    Resource<GroupMember> patch(String id, GroupMember member);
 
 }

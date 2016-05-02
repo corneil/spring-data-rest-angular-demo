@@ -58,11 +58,13 @@
                     var MembersForGroup = $resource('/rest/members/search?groupName=:groupName', {groupName: '@groupName'});
                     MembersForGroup.get({groupName: group.groupName}).$promise.then(function (groupMembers) {
                         group.members = [];
-                        var members = groupMembers._embedded.groupMemberList;
-                        for (var index in members) {
-                            var member = members[index];
-                            var deferredMember = makeDeferredMember(member);
-                            group.members.push(deferredMember);
+                        if(groupMembers._embedded) {
+                            var members = groupMembers._embedded.groupMemberList;
+                            for (var index in members) {
+                                var member = members[index];
+                                var deferredMember = makeDeferredMember(member);
+                                group.members.push(deferredMember);
+                            }
                         }
                         memberList.resolve(group.members);
                     }, function (response) {

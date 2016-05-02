@@ -3,13 +3,11 @@
 		<encoder>
 			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
 		</encoder>
-		<!--
 		<filter class="ch.qos.logback.classic.filter.LevelFilter">
 			<level>INFO</level>
 			<onMatch>ACCEPT</onMatch>
 			<onMismatch>DENY</onMismatch>
 		</filter>
-		-->
 	</appender>
 	<appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
 		<file>logFile.log</file>
@@ -33,8 +31,9 @@
 	</appender>
 	<logger name="com.github.corneil.data_rest_demo" level="DEBUG"/>
 	<logger name="org.springframework.boot" level="DEBUG"/>
+	<logger name="org.springframework.web.client" level="DEBUG"/>
 	<logger name="requestFilter" level="DEBUG" additivity="false">
-		<appender-ref ref="REQFILTER" />
+		<appender-ref ref="REQFILTER"/>
 	</logger>
 	<root level="INFO">
 		<appender-ref ref="STDOUT"/>

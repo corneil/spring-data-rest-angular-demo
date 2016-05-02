@@ -12,6 +12,7 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -77,6 +78,12 @@ public class GroupMemberController extends AbstractRestExceptionHandler {
         prepareForUpdate(groupMember);
         Link selfLink = new Link(groupData.resourceLink(id), "self");
         return ResponseEntity.ok(createResponse(memberData.save(id, new Resource<GroupMember>(groupMember, selfLink))));
+    }
+    @RequestMapping(path = "/{id}", method = RequestMethod.PATCH)
+    public ResponseEntity<Resource<GroupMember>> patch(@PathVariable String id, @RequestBody GroupMember groupMember) {
+        Assert.notNull(id, "id is required");
+        logger.debug("path:{},{}", id, groupMember);
+        return ResponseEntity.ok(createResponse(memberData.patch(id, groupMember)));
     }
     private void prepareForUpdate(@RequestBody GroupMember groupMember) {
         String memberId = RestHelper.resourceId(groupMember.getMember(), linkTo(UserController.class).toUri().toString());
