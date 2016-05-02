@@ -10,7 +10,13 @@ import org.springframework.hateoas.Resources;
  * Created by Corneil on 2016-05-01.
  */
 public interface GroupDataInterface {
-    public String resourceId(Resource<Group> self);
-    Resources<Resource<Group>> findAll();
     int countByGroupOwner(String userId);
+    Resource<Group> create(Group user);
+    void delete(String id);
+    Resources<Resource<Group>> findAll();
+    Resource<Group> load(String id);
+    Resource<Group> find(String groupName);
+    String resourceId(Link selfRel);
+    String resourceId(Resource<Group> self);
+    void save(Group user);
 }

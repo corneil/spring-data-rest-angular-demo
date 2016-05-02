@@ -1,14 +1,30 @@
 package com.github.corneil.data_rest_demo.web_app.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.Resource;
+
 import javax.validation.constraints.NotNull;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Group {
+    public static class GroupResource extends Resource<Group> {
+        public GroupResource() {
+            super(new Group());
+        }
+        public GroupResource(Group content, Iterable<Link> links) {
+            super(content, links);
+        }
+        public GroupResource(Group content, Link... links) {
+            super(content, links);
+        }
+    }
     @NotNull
     private String description;
     @NotNull
     private String groupName;
     @NotNull
-    private User groupOwner;
+    private String groupOwner;
     public String getDescription() {
         return description;
     }
@@ -21,10 +37,10 @@ public class Group {
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
-    public User getGroupOwner() {
+    public String getGroupOwner() {
         return groupOwner;
     }
-    public void setGroupOwner(User groupOwner) {
+    public void setGroupOwner(String groupOwner) {
         this.groupOwner = groupOwner;
     }
     @Override

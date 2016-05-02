@@ -67,9 +67,9 @@
                     var deferred = $q.defer();
                     $log.debug('PUT -> ' + ':' + user._links.self.href);
                     var User = $resource(user._links.self.href, {}, {save: {method: 'PUT'}});
-                    User.save(user).$promise.then(function (response) {
-                        userCache.put(response.data._links.self.href, response.data);
-                        deferred.resolve(response.data);
+                    User.save(user).$promise.then(function (data) {
+                        userCache.put(data._links.self.href, data);
+                        deferred.resolve(data);
                     },
                     function (response) {
                         $log.error('saveUser:failed:' + JSON.stringify(response, null, 2));

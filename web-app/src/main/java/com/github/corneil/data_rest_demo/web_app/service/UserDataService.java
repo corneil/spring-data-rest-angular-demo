@@ -12,7 +12,10 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.hateoas.client.Traverson;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 import org.springframework.web.client.RestTemplate;
@@ -93,5 +96,16 @@ public class UserDataService implements UserDataInterface {
         Assert.notNull(user);
         Link usersRel = getTraverson().follow("users").asLink();
         return dataServiceClient.postForObject(usersRel.getHref(), user, User.UserResource.class);
+    }
+    @Override
+    public Resource<User> save(String id, Resource<User> user) {
+        Assert.notNull(user);
+        Link usersRel = getTraverson().follow("users").asLink();
+        HttpEntity<Resource<User>> request = new HttpEntity<Resource<User>>(user);
+        ResponseEntity<Resource<User>>
+                response =
+                dataServiceClient.exchange(usersRel.getHref() + "/" + id, HttpMethod.PUT, request, userTypeRef);
+        // TODO check status code
+        return response.getBody();
     }
 }

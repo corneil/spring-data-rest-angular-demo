@@ -71,11 +71,18 @@ public class UserController extends AbstractRestExceptionHandler {
         Resource<User> result = new Resource<User>(response.getContent(), linkTo(UserController.class).slash(id).withSelfRel());
         return ResponseEntity.ok(result);
     }
+    @RequestMapping(path = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Resource<User>> save(@PathVariable String id, @RequestBody Resource<User> user) throws URISyntaxException {
+        Resource<User> response = userData.save(id, user);
+        String resId = userData.resourceId(response);
+        Resource<User> result = new Resource<User>(response.getContent(), linkTo(UserController.class).slash(resId).withSelfRel());
+        return ResponseEntity.ok(result);
+    }
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<?> delete(@PathVariable String id) throws URISyntaxException {
         Resource<User> user = userData.load(id);
         int count = groupData.countByGroupOwner(user.getContent().getUserId());
-        if(count > 0) {
+        if (count > 0) {
             ErrorMessage msg = new ErrorMessage(String.format("%s owns %d groups", user.getContent().getUserId(), count));
             return ResponseEntity.badRequest().body(msg);
         }

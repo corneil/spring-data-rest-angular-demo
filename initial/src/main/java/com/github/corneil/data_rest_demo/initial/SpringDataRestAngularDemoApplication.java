@@ -1,6 +1,6 @@
 package com.github.corneil.data_rest_demo.initial;
 
-import com.github.corneil.data_rest_demo.initial.filter.RequestLoggingFilter;
+import com.github.corneil.data_rest_demo.common.filter.RequestLoggingFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;

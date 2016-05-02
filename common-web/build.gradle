@@ -8,6 +8,9 @@ configurations {
 }
 
 dependencies {
+    compile 'org.slf4j:slf4j-api'
+    compile 'javax.servlet:javax.servlet-api:3.1.0'
+
 
     webJarsBower 'org.webjars.bower:angular'
     webJarsBower 'org.webjars.bower:angular-route'

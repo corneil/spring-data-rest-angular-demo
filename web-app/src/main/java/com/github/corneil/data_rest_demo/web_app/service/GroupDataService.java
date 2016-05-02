@@ -7,6 +7,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.LinkBuilder;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
@@ -49,7 +51,11 @@ public class GroupDataService implements GroupDataInterface {
     }
     @Override
     public String resourceId(Resource<Group> self) {
-        return RestHelper.resourceId(self.getLink("self").getHref(), getTraverson().follow("groups").asLink().getHref());
+        return resourceId(self.getLink("self"));
+    }
+    @Override
+    public String resourceId(Link selfRel) {
+        return RestHelper.resourceId(selfRel.getHref(), getTraverson().follow("groups").asLink().getHref());
     }
     @Override
     public Resources<Resource<Group>> findAll() {
@@ -62,5 +68,24 @@ public class GroupDataService implements GroupDataInterface {
                               .follow(rel("countByGroupOwner_UserId").withParameter("userId", userId))
                               .toObject(String.class);
         return Integer.parseInt(response);
+    }
+    @Override
+    public Resource<Group> create(Group group) {
+        String url = getTraverson().follow("users").asLink().getHref();
+        return dataServiceClient.postForObject(url, group, Group.GroupResource.class);
+    }
+    @Override
+    public void delete(String id) {
+    }
+    @Override
+    public Resource<Group> load(String id) {
+        return null;
+    }
+    @Override
+    public Resource<Group> find(String groupName) {
+        return null;
+    }
+    @Override
+    public void save(Group user) {
     }
 }

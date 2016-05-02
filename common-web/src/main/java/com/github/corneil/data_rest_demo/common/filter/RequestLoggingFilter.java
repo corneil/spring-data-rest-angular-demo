@@ -1,4 +1,4 @@
-package com.github.corneil.data_rest_demo.web_app.filter;
+package com.github.corneil.data_rest_demo.common.filter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -284,59 +284,70 @@ public class RequestLoggingFilter implements Filter {
     }
     @Override
     public void doFilter(ServletRequest sRequest, ServletResponse sResponse, FilterChain chain) throws IOException, ServletException {
-        if (logger.isDebugEnabled()) {
-            final HttpServletRequest httpRequest = (HttpServletRequest) sRequest;
-            BufferedRequestWrapper bufferedRequest = new BufferedRequestWrapper(httpRequest);
-            logger.debug("REMOTE: {}", httpRequest.getRemoteAddr());
-            logger.debug("REQUEST METHOD: {}", httpRequest.getMethod());
-            logger.debug("REQUEST URL: {}", httpRequest.getRequestURL().toString());
-            logger.debug("REQUEST HEADERS -> ");
-            Enumeration<String> headers = httpRequest.getHeaderNames();
-            while (headers.hasMoreElements()) {
-                String name = headers.nextElement();
-                Enumeration<String> values = httpRequest.getHeaders(name);
-                while (values.hasMoreElements()) {
-                    logger.debug("\t{}={}", name, values.nextElement());
-                }
-            }
-            logger.debug("REQUEST PARAMETERS ->");
-            if (!httpRequest.getParameterMap().isEmpty()) {
-                Enumeration<String> names = httpRequest.getParameterNames();
-                while (names.hasMoreElements()) {
-                    String name = names.nextElement();
-                    String[] values = httpRequest.getParameterValues(name);
-                    if (values != null) {
-                        if (values.length == 1) {
-                            logger.debug("\t{}={}", name, values[0]);
-                        } else {
-                            logger.debug("\t{}={}", name, Arrays.asList(values));
-                        }
-                    } else {
-                        logger.debug("\t{}={}", name, httpRequest.getParameter(name));
+        try {
+            if (logger.isDebugEnabled()) {
+                final HttpServletRequest httpRequest = (HttpServletRequest) sRequest;
+                BufferedRequestWrapper bufferedRequest = new BufferedRequestWrapper(httpRequest);
+                logger.debug("REMOTE: {}", httpRequest.getRemoteAddr());
+                logger.debug("REQUEST METHOD: {}", httpRequest.getMethod());
+                logger.debug("REQUEST URL: {}", httpRequest.getRequestURL().toString());
+                logger.debug("REQUEST HEADERS -> ");
+                Enumeration<String> headers = httpRequest.getHeaderNames();
+                while (headers.hasMoreElements()) {
+                    String name = headers.nextElement();
+                    Enumeration<String> values = httpRequest.getHeaders(name);
+                    while (values.hasMoreElements()) {
+                        logger.debug("\t{}={}", name, values.nextElement());
                     }
                 }
-            }
-            logger.debug("REQUEST BODY -> {}", new String(bufferedRequest.getBuffer()));
-            final HttpServletResponse response = (HttpServletResponse) sResponse;
-            final ByteArrayPrintWriter pw = new ByteArrayPrintWriter();
-            HttpServletResponse wrappedResp = new HttpServletResponseWrapper(response) {
-                public ServletOutputStream getOutputStream() {
-                    return pw.getStream();
+                logger.debug("REQUEST PARAMETERS ->");
+                if (!httpRequest.getParameterMap().isEmpty()) {
+                    Enumeration<String> names = httpRequest.getParameterNames();
+                    while (names.hasMoreElements()) {
+                        String name = names.nextElement();
+                        String[] values = httpRequest.getParameterValues(name);
+                        if (values != null) {
+                            if (values.length == 1) {
+                                logger.debug("\t{}={}", name, values[0]);
+                            } else {
+                                logger.debug("\t{}={}", name, Arrays.asList(values));
+                            }
+                        } else {
+                            logger.debug("\t{}={}", name, httpRequest.getParameter(name));
+                        }
+                    }
                 }
-                public PrintWriter getWriter() {
-                    return pw.getWriter();
+                logger.debug("REQUEST BODY -> {}", new String(bufferedRequest.getBuffer()));
+                final HttpServletResponse response = (HttpServletResponse) sResponse;
+                final ByteArrayPrintWriter pw = new ByteArrayPrintWriter();
+                HttpServletResponse wrappedResp = new HttpServletResponseWrapper(response) {
+                    public ServletOutputStream getOutputStream() {
+                        return pw.getStream();
+                    }
+                    public PrintWriter getWriter() {
+                        return pw.getWriter();
+                    }
+                };
+                chain.doFilter(bufferedRequest, wrappedResp);
+                byte[] bytes = pw.toByteArray();
+                response.getOutputStream().write(bytes);
+                logger.debug("RESPONSE HEADERS ->");
+                for (String name : wrappedResp.getHeaderNames()) {
+                    logger.debug("\t{}={}", name, wrappedResp.getHeaders(name));
                 }
-            };
-            chain.doFilter(bufferedRequest, wrappedResp);
-            byte[] bytes = pw.toByteArray();
-            response.getOutputStream().write(bytes);
-            logger.debug("RESPONSE HEADERS ->");
-            for (String name : wrappedResp.getHeaderNames()) {
-                logger.debug("\t{}={}", name, wrappedResp.getHeaders(name));
+                logger.debug("RESPONSE -> {}", new String(bytes));
+            } else {
+                chain.doFilter(sRequest, sResponse);
             }
-            logger.debug("RESPONSE -> {}", new String(bytes));
-        } else {
-            chain.doFilter(sRequest, sResponse);
+        } catch (IOException x) {
+            logger.error("filter:" + x, x);
+            throw x;
+        } catch (ServletException x) {
+            logger.error("filter:" + x, x);
+            throw x;
+        } catch (Throwable x) {
+            logger.error("filter:" + x, x);
+            throw new ServletException(x);
         }
     }
     @Override
