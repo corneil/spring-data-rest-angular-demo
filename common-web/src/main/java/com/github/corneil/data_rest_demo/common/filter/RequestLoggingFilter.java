@@ -277,7 +277,7 @@ public class RequestLoggingFilter implements Filter {
         }
     }
 
-    private static Logger logger = LoggerFactory.getLogger("requestFilter");
+    private static Logger logger = LoggerFactory.getLogger(RequestLoggingFilter.class);
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
         logger.info("init: {}", filterConfig.getFilterName());

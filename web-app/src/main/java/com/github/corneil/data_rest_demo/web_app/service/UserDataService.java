@@ -47,8 +47,8 @@ public class UserDataService extends AbstractDataService implements UserDataInte
     public void delete(String id) {
         Assert.notNull(id);
         try {
-            Link selfRel = getTraverson().follow("users").follow(id).asLink();
-            dataServiceClient.delete(new URI(selfRel.getHref()));
+            String url = getTraverson().follow("users").asLink().getHref();
+            dataServiceClient.delete(new URI(url + "/" + id));
         } catch (URISyntaxException x) {
             throw new RuntimeException("resourceId:exception:" + x, x);
         }

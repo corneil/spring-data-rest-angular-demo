@@ -22,7 +22,9 @@ public class SpringDataRestAngularDemoApplication extends SpringBootServletIniti
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(new RequestLoggingFilter());
         List<String> urlPatterns = new ArrayList<String>();
-        urlPatterns.add("/*");
+        urlPatterns.add("/users/*");
+        urlPatterns.add("/groups/*");
+        urlPatterns.add("/group-member/*");
         registrationBean.setUrlPatterns(urlPatterns);
         return registrationBean;
     }

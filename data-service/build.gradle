@@ -40,6 +40,7 @@ dependencies {
         exclude(module: 'xml-apis')
     }
     compile 'javax.el:javax.el-api'
+    compile 'ch.qos.logback:logback-classic'
 
     runtime 'com.h2database:h2'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
