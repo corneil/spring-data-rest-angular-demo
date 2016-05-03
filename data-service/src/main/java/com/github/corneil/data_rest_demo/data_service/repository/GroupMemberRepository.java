@@ -9,7 +9,7 @@ import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
 import com.github.corneil.data_rest_demo.data_service.data.GroupMember;
 
-@RepositoryRestResource(collectionResourceRel = "groupMembers", itemResourceRel = "groupMember", path = "group-member")
+@RepositoryRestResource(collectionResourceRel = "members", itemResourceRel = "member", path = "members")
 public interface GroupMemberRepository extends CrudRepository<GroupMember, Long> {
     List<GroupMember> findByMemberOfgroup_GroupName(@Param("groupName") String groupName);
     List<GroupMember> findByMemberOfgroup_GroupNameAndEnabledTrue(@Param("groupName") String groupName);

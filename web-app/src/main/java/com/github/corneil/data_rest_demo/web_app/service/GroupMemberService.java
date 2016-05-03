@@ -25,7 +25,7 @@ public class GroupMemberService extends AbstractDataService implements GroupMemb
             };
     @Override
     public Resource<GroupMember> create(GroupMember member) {
-        String url = getTraverson().follow(rel("groupMembers")).asLink().getHref();
+        String url = getTraverson().follow("members").asLink().getHref();
         HttpEntity<GroupMember> request = new HttpEntity<GroupMember>(member);
         ResponseEntity<Resource<GroupMember>> response = dataServiceClient.exchange(url, HttpMethod.POST, request, memberTypeRef);
         // TODO process status
@@ -33,39 +33,39 @@ public class GroupMemberService extends AbstractDataService implements GroupMemb
     }
     @Override
     public void delete(String id) {
-        String url = getTraverson().follow(rel("groupMembers")).asLink().getHref();
+        String url = getTraverson().follow("members").asLink().getHref();
         dataServiceClient.delete(url + "/" + id);
         // TODO process status
     }
     @Override
     public Resources<Resource<GroupMember>> findAll() {
-        return getTraverson().follow(rel("groupMembers")).toObject(membersTypeRef);
+        return getTraverson().follow("members").toObject(membersTypeRef);
     }
     @Override
     public Resources<Resource<GroupMember>> findByMemberOfGroup(String groupName) {
-        return getTraverson().follow(rel("groupMembers"))
+        return getTraverson().follow("members")
                              .follow(rel("search"))
                              .follow(rel("findByMemberOfgroup_GroupName").withParameter("groupName", groupName))
                              .toObject(membersTypeRef);
     }
     @Override
     public Resource<GroupMember> load(String id) {
-        String url = getTraverson().follow(rel("groupMembers")).asLink().getHref();
+        String url = getTraverson().follow("members").asLink().getHref();
         ResponseEntity<Resource<GroupMember>> response = dataServiceClient.exchange(url + "/" + id, HttpMethod.GET, null, memberTypeRef);
         return response.getBody();
     }
     @Override
     public String resourceId(Resource<GroupMember> member) {
         Assert.notNull(member);
-        return RestHelper.resourceId(member.getLink("self").getHref(), getTraverson().follow(rel("groupMembers")).asLink().getHref());
+        return RestHelper.resourceId(member.getLink("self").getHref(), getTraverson().follow("members").asLink().getHref());
     }
     @Override
     public String resourceLink(String id) {
-        return getTraverson().follow(rel("groupMembers")).asLink() + "/" + id;
+        return getTraverson().follow("members").asLink() + "/" + id;
     }
     @Override
     public Resource<GroupMember> save(String id, Resource<GroupMember> member) {
-        String url = getTraverson().follow(rel("groupMembers")).asLink().getHref();
+        String url = getTraverson().follow("members").asLink().getHref();
         HttpEntity<GroupMember> request = new HttpEntity<GroupMember>(member.getContent());
         ResponseEntity<Resource<GroupMember>> response = dataServiceClient.exchange(url + "/" + id, HttpMethod.PUT, request, memberTypeRef);
         // TODO process status
@@ -73,7 +73,7 @@ public class GroupMemberService extends AbstractDataService implements GroupMemb
     }
     @Override
     public Resource<GroupMember> patch(String id, GroupMember member) {
-        String url = getTraverson().follow(rel("groupMembers")).asLink().getHref();
+        String url = getTraverson().follow("members").asLink().getHref();
         HttpEntity<GroupMember> request = new HttpEntity<GroupMember>(member);
         ResponseEntity<Resource<GroupMember>> response = dataServiceClient.exchange(url + "/" + id, HttpMethod.PATCH, request, memberTypeRef);
         return response.getBody();
