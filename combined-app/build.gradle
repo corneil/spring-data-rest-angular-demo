@@ -3,6 +3,7 @@ apply plugin: 'idea'
 apply plugin: 'eclipse-wtp'
 apply plugin: 'spring-boot'
 
+description = 'Spring Data Rest Angular Demo - Combined App'
 configurations {
     providedRuntime
 }
@@ -28,6 +29,11 @@ jar {
 
 dependencies {
     compile project(':common-web')
+    compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+    compile 'org.springframework.boot:spring-boot-starter-data-rest'
+    compile 'org.springframework.data:spring-data-rest-hal-browser'
+    compile 'org.springframework.boot:spring-boot-starter-hateoas'
+
     compile 'org.springframework.boot:spring-boot-starter-thymeleaf'
     compile 'net.sourceforge.nekohtml:nekohtml'
 
@@ -42,7 +48,13 @@ dependencies {
     compile 'ch.qos.logback:logback-classic'
     compile 'org.apache.httpcomponents:httpclient'
 
+    compile('commons-dbcp:commons-dbcp') {
+        exclude(module: 'commons-logging')
+        exclude(module: 'xml-apis')
+    }
 
+
+    runtime 'com.h2database:h2'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc'

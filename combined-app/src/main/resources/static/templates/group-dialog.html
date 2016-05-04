@@ -1,0 +1,64 @@
+<md-dialog aria-label="{{dialogTitle}}" ng-cloak flex-sm="80" flex-md="50" flex-gt-md="30" flex-xs="100">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<h2>{{dialogTitle}}</h2>
+			<span flex></span>
+			<md-button class="md-icon-button" ng-click="cancel()">
+				<md-icon md-svg-icon="navigation:ic_close" aria-label="Close dialog"></md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-dialog-content class="md-dialog-content md-hue-1">
+		<form name="groupForm" ng-submit="save()">
+			<div layout="column">
+				<md-input-container class="md-block" md-is-error="groupForm.groupName.$touched && groupForm.groupName.$invalid">
+					<label>Group Name</label>
+					<input name="groupName"
+					       md-autofocus="newGroup"
+					       ng-disabled="!newGroup"
+					       ng-model="group.groupName"
+					       minlength="3"
+					       md-minlength="3"
+					       maxlength="32"
+					       md-maxlength="32"
+					       required>
+					<ng-messages for="groupForm.groupName.$error" role="alert" multiple>
+						<ng-message when="required">You must supply a group name.</ng-message>
+						<ng-message when="md-minlength, minlength">The group name is too short!.</ng-message>
+						<ng-message when="md-maxlength, maxlength">The group name is too long!.</ng-message>
+						<ng-message when="unique">The group name is not unique.</ng-message>
+					</ng-messages>
+				</md-input-container>
+				<md-input-container class="md-block" md-is-error="groupForm.description.$touched && groupForm.description.$invalid">
+					<label>Description</label>
+					<input name="description" md-autofocus="!newGroup" ng-model="group.description" required>
+					<ng-messages for="groupForm.description.$error" role="alert" multiple>
+						<ng-message when="required">You must supply a description.</ng-message>
+					</ng-messages>
+				</md-input-container>
+				<md-autocomplete required
+				                 flex
+				                 md-select-on-focus
+				                 md-selected-item="group._groupOwner"
+				                 md-search-text="searchText"
+				                 md-min-length="2"
+				                 md-delay="150"
+				                 md-items="user in queryMemberSearch(searchText)"
+				                 md-item-text="user.fullName"
+				                 md-floating-label="Search for a user">
+					<span md-highlight-text="searchText">{{user.userId}} ({{user.fullName}})</span>
+				</md-autocomplete>
+				<ng-messages for="groupForm.groupOwner.$error" role="alert" multiple>
+					<ng-message when="required">You must select a group owner.</ng-message>
+				</ng-messages>
+			</div>
+		</form>
+		<div class="validation-messages" ng-repeat="error in errorMessages">
+			<div>{{error}}</div>
+		</div>
+	</md-dialog-content>
+	<md-dialog-actions>
+		<md-button class="md-primary" ng-disabled="groupForm.$invalid || !groupForm.$dirty" ng-click="save()">Save</md-button>
+		<md-button class="md-primary" ng-click="cancel()">Cancel</md-button>
+	</md-dialog-actions>
+</md-dialog>

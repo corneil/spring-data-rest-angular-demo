@@ -1,0 +1,52 @@
+<md-content layout="column" flex class="relative" layout-fill role="main" ng-cloak>
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Open SideNav" ng-click="openSidenav()">
+				<md-icon md-svg-icon="navigation:ic_menu"></md-icon>
+			</md-button>
+			<h3>Main Menu</h3>
+		</div>
+	</md-toolbar>
+	<md-content class="md-hue-1" layout="row" layout-align="center start">
+		<md-grid-list flex-xs="100"
+		              flex-sm="80"
+		              flex-gt-sm="60"
+		              md-cols="3"
+		              md-row-height-gt-sm="192px"
+		              md-row-height-xs="96px"
+		              md-row-height-sm="128px"
+		              md-gutter-gt-sm="4em"
+		              md-gutter-sm="2em"
+		              md-gutter-xs="1em">
+			<md-grid-tile ng-repeat="item in mainMenu">
+				<md-button class="md-primary" ng-click="showMenu(item)">
+					<img ng-if="item.type=='img'" ng-class="iconStyle" src="/assets/img/{{item.icon}}"/>
+					<md-icon ng-if="item.type=='svg'"
+					         ng-class="iconStyle"
+					         class="md-primary md-hue-2"
+					         md-svg-icon="{{item.icon}}"
+					         aria-label="{{item.title}}"></md-icon>
+				</md-button>
+				<md-grid-tile-footer hide-xs hide-sm layout="column">
+					<md-button ng-bind="item.title" ng-click="showMenu(item)" aria-label="{{item.title}}"></md-button>
+				</md-grid-tile-footer>
+			</md-grid-tile>
+			<md-grid-tile ng-repeat="item in adminMenu">
+				<md-button class="md-primary" ng-click="showMenu(item)">
+					<img ng-if="item.type=='img'" ng-class="iconStyle" src="/assets/img/{{item.icon}}"/>
+					<md-icon ng-if="item.type=='svg'"
+					         ng-class="iconStyle"
+					         class="md-primary md-hue-2"
+					         md-svg-icon="{{item.icon}}"
+					         aria-label="{{item.title}}"></md-icon>
+				</md-button>
+				<md-grid-tile-footer hide-xs hide-sm layout="column">
+					<md-button ng-bind="item.title" ng-click="showMenu(item)" aria-label="{{item.title}}"></md-button>
+				</md-grid-tile-footer>
+			</md-grid-tile>
+		</md-grid-list>
+	</md-content>
+	<md-content class="md-hue-1" flex>
+		<span flex></span>
+	</md-content>
+</md-content>
