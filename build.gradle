@@ -1,7 +1,7 @@
 buildscript {
     ext {
-        springBootVersion = '1.3.3.RELEASE'
-        springPlatformVersion = '2.0.3.RELEASE'
+        springBootVersion = '1.3.5.RELEASE'
+        springPlatformVersion = '2.0.4.RELEASE'
         manifestVendor = 'com.github.corneil'
     }
     repositories {

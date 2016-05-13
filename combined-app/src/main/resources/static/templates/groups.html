@@ -22,7 +22,8 @@
 			</md-button>
 		</div>
 	</md-toolbar>
-	<md-table-container>
+	<div class="main-content" layoyt-fill>
+	<md-table-container class="md-whiteframe-12dp">
 		<table md-table md-row-select="true" data-ng-model="selected" multiple="true" md-progress="promise">
 			<thead md-head md-order="groupOrder">
 			<tr md-row>
@@ -49,6 +50,7 @@
 			</tbody>
 		</table>
 	</md-table-container>
+	</div>
 	<md-button class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="addGroup($event)">
 		<md-icon md-svg-icon="content:ic_add"></md-icon>
 	</md-button>

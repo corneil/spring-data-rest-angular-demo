@@ -76,16 +76,13 @@
 			return m.isValid() ? m.toDate() : new Date(NaN);
 		};
 		// Theme configuration
-		$mdThemingProvider.theme("default") /*
-				.primaryPalette("indigo")
-				.accentPalette("blue")
-				.warnPalette('red')
-				.backgroundPalette('light-blue')*/;
+		$mdThemingProvider.theme("default");
 
 		$mdThemingProvider.theme("error")
 				.primaryPalette("red")
 				.accentPalette("yellow")
-				.warnPalette('orange');
+				.warnPalette('orange')
+				.backgroundPalette('light-blue');
 
 		var themeColours = Object.keys($mdColorPalette);
 		var prevColour = themeColours[themeColours.length - 1];

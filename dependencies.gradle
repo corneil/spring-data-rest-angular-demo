@@ -19,7 +19,7 @@ dependencyManagement {
         dependency 'org.webjars.bower:angular-animate:1.5.5'
         dependency 'org.webjars.bower:angular-messages:1.5.5'
         dependency 'org.webjars.bower:angular-aria:1.5.5'
-        dependency 'org.webjars.bower:angular-material:1.0.7'
+        dependency 'org.webjars.bower:angular-material:1.0.8'
         dependency 'org.webjars.bower:angular-gravatar:0.4.1'
         dependency 'org.webjars:material-design-icons:2.2.0'
         dependency 'org.webjars.bower:moment:2.12.0'

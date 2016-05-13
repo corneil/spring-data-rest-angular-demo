@@ -27,6 +27,7 @@
 			</md-button>
 		</div>
 	</md-toolbar>
+	<div class="main-content" layoyt-fill>
 	<md-content layout="row" layout-wrap>
 		<md-card ng-repeat="user in users">
 			<md-card-title>
@@ -60,6 +61,7 @@
 			</md-card-actions>
 		</md-card>
 	</md-content>
+	</div>
 	<md-button class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="addUser($event)">
 		<md-icon md-svg-icon="content:ic_add"></md-icon>
 	</md-button>

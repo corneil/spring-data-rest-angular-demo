@@ -14,7 +14,8 @@
 			                      md-diameter="48"></md-progress-circular>
 		</div>
 	</md-toolbar>
-	<md-content layout="row">
+	<div class="main-content" layoyt-fill>
+	<md-content layout="row" class="md-whiteframe-12dp">
 		<md-list ng-show="groups != null" flex="100">
 			<md-list-item ng-repeat="group in groups"
 			              class="md-2-line"
@@ -78,4 +79,5 @@
 	<md-button style="z-index: 60" ng-show="selectedGroup != null" class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="addMember($event)">
 		<md-icon md-svg-icon="content:ic_add"></md-icon>
 	</md-button>
+	</div>
 </md-content>
