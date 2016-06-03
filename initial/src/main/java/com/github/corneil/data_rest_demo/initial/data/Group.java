@@ -1,4 +1,4 @@
-package com.github.corneil.data_rest_demo.data_service.data;
+package com.github.corneil.data_rest_demo.initial.data;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "groups", schema = "sd")
-public class GroupInfo {
+public class Group {
     @NotNull
     private String description;
     @NotNull
@@ -19,14 +19,14 @@ public class GroupInfo {
     private String groupName;
     @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
-    private UserInfo groupOwner;
+    private User groupOwner;
     @Id
     @GeneratedValue
     private Long id;
-    public GroupInfo() {
+    public Group() {
         super();
     }
-    public GroupInfo(String groupName, String description, UserInfo groupOwner) {
+    public Group(String groupName, String description, User groupOwner) {
         super();
         this.groupName = groupName;
         this.description = description;
@@ -44,10 +44,10 @@ public class GroupInfo {
     public void setGroupName(String groupName) {
         this.groupName = groupName;
     }
-    public UserInfo getGroupOwner() {
+    public User getGroupOwner() {
         return groupOwner;
     }
-    public void setGroupOwner(UserInfo groupOwner) {
+    public void setGroupOwner(User groupOwner) {
         this.groupOwner = groupOwner;
     }
     public Long getId() {
@@ -62,7 +62,7 @@ public class GroupInfo {
     }
     @Override
     public String toString() {
-        final StringBuilder sb = new StringBuilder("GroupInfo{");
+        final StringBuilder sb = new StringBuilder("Group{");
         sb.append("id=").append(id);
         sb.append(", groupName='").append(groupName).append('\'');
         sb.append(", description='").append(description).append('\'');
@@ -78,7 +78,7 @@ public class GroupInfo {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        GroupInfo groupInfo = (GroupInfo) o;
-        return groupName != null ? groupName.equals(groupInfo.groupName) : groupInfo.groupName == null;
+        Group group = (Group) o;
+        return groupName != null ? groupName.equals(group.groupName) : group.groupName == null;
     }
 }

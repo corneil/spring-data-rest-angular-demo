@@ -9,8 +9,8 @@ import java.util.List;
 
 @RepositoryRestResource(collectionResourceRel = "groupMembers", itemResourceRel = "groupMember", path = "group-member")
 public interface GroupMemberRepository extends CrudRepository<GroupMember, Long> {
-    List<GroupMember> findByMemberOfgroup_GroupName(@Param("groupName") String groupName);
-    List<GroupMember> findByMemberOfgroup_GroupNameAndEnabledTrue(@Param("groupName") String groupName);
-    List<GroupMember> findByMember_UserIdAndEnabledTrue(@Param("userId") String userId);
-    List<GroupMember> findByMember_UserId(@Param("userId") String userId);
+    List<GroupMember> findByGroup_GroupName(@Param("groupName") String groupName);
+    List<GroupMember> findByGroup_GroupNameAndEnabledTrue(@Param("groupName") String groupName);
+    List<GroupMember> findByUser_UserIdAndEnabledTrue(@Param("userId") String userId);
+    List<GroupMember> findByUser_UserId(@Param("userId") String userId);
 }

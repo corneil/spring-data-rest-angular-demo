@@ -51,22 +51,22 @@
 			</md-toolbar>
 			<md-content flex>
 				<md-list flex>
-					<md-list-item ng-repeat="member in selectedGroup.members" class="md-2-line">
+					<md-list-item ng-repeat="user in selectedGroup.members" class="md-2-line">
 						<img class="md-avatar"
 						     style="background-color: white"
-						     src="/assets/users/{{member.userId}}.png"
+						     src="/assets/users/{{user.userId}}.png"
 						     height="48px"
 						     width="48px"
-						     aria-label="Avatar for {{member.userId}}"/>
-						<div class="md-list-item-text" ng-class="{memberDisabled: !member.enabled}">
-							<h3 ng-bind="member.userId"></h3>
-							<em ng-bind="member.fullName"></em>
+						     aria-label="Avatar for {{user.userId}}"/>
+						<div class="md-list-item-text" ng-class="{memberDisabled: !user.enabled}">
+							<h3 ng-bind="user.userId"></h3>
+							<em ng-bind="user.fullName"></em>
 						</div>
-						<md-button class="md-icon-button" aria-label="Disable / Enable" ng-click="toggleEnabledMember($event, member)">
-							<md-icon ng-show="member.enabled" md-svg-icon="social:ic_person_outline"></md-icon>
-							<md-icon ng-show="!member.enabled" md-svg-icon="social:ic_person"></md-icon>
+						<md-button class="md-icon-button" aria-label="Disable / Enable" ng-click="toggleEnabledMember($event, user)">
+							<md-icon ng-show="user.enabled" md-svg-icon="social:ic_person_outline"></md-icon>
+							<md-icon ng-show="!user.enabled" md-svg-icon="social:ic_person"></md-icon>
 						</md-button>
-						<md-button class="md-icon-button" aria-label="Delete" ng-click="deleteMember($event, member)">
+						<md-button class="md-icon-button" aria-label="Delete" ng-click="deleteMember($event, user)">
 							<md-icon md-svg-icon="action:ic_delete"></md-icon>
 						</md-button>
 						<md-divider ng-if="!$last"></md-divider>

@@ -1,8 +1,8 @@
 package com.github.corneil.data_rest_demo.initial.repository;
 
-import com.github.corneil.data_rest_demo.initial.data.GroupInfo;
+import com.github.corneil.data_rest_demo.initial.data.Group;
 import com.github.corneil.data_rest_demo.initial.data.GroupMember;
-import com.github.corneil.data_rest_demo.initial.data.UserInfo;
+import com.github.corneil.data_rest_demo.initial.data.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,21 +22,21 @@ public class CustomRepositoryConfiguration {
         protected EntityLinks entityLinks;
         @Override
         public Resource<GroupMember> process(Resource<GroupMember> resource) {
-            resource.add(entityLinks.linkForSingleResource(GroupInfo.class, resource.getContent().getMemberOfgroup().getId())
+            resource.add(entityLinks.linkForSingleResource(Group.class, resource.getContent().getGroup().getId())
                                     .withRel("_memberOfgroup"));
-            resource.add(entityLinks.linkForSingleResource(UserInfo.class, resource.getContent().getMember().getId()).withRel("_member"));
+            resource.add(entityLinks.linkForSingleResource(User.class, resource.getContent().getUser().getId()).withRel("_member"));
             return resource;
         }
     }
 
-    private static class GroupResourceProcessor implements ResourceProcessor<Resource<GroupInfo>> {
+    private static class GroupResourceProcessor implements ResourceProcessor<Resource<Group>> {
         public GroupResourceProcessor(EntityLinks entityLinks) {
             this.entityLinks = entityLinks;
         }
         protected EntityLinks entityLinks;
         @Override
-        public Resource<GroupInfo> process(Resource<GroupInfo> resource) {
-            resource.add(entityLinks.linkForSingleResource(UserInfo.class, resource.getContent().getGroupOwner().getId())
+        public Resource<Group> process(Resource<Group> resource) {
+            resource.add(entityLinks.linkForSingleResource(User.class, resource.getContent().getGroupOwner().getId())
                                     .withRel("_groupOwner"));
             return resource;
         }
@@ -48,7 +48,7 @@ public class CustomRepositoryConfiguration {
     }
     @Bean
     @Autowired
-    public ResourceProcessor<Resource<GroupInfo>> groupProcessor(EntityLinks entityLinks) {
+    public ResourceProcessor<Resource<Group>> groupProcessor(EntityLinks entityLinks) {
         return new GroupResourceProcessor(entityLinks);
     }
 }

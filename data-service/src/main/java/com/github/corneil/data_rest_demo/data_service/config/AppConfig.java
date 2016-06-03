@@ -8,8 +8,8 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
 @Configuration
-@EnableJpaRepositories(basePackages = {"com.github.corneil.data_rest_demo.data_service.repository"})
-@ComponentScan(basePackages = {"com.github.corneil.data_rest_demo"})
+@EnableJpaRepositories(basePackages = {"com.github.corneil"})
+@ComponentScan(basePackages = {"com.github.corneil"})
 public class AppConfig {
 
     @Bean

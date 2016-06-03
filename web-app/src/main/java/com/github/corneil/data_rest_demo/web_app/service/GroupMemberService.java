@@ -16,13 +16,13 @@ import static org.springframework.hateoas.client.Hop.*;
 @Service("groupMemberService")
 public class GroupMemberService extends AbstractDataService implements GroupMemberInterface {
     private static ParameterizedTypeReference<Resources<Resource<GroupMember>>>
-            membersTypeRef =
-            new ParameterizedTypeReference<Resources<Resource<GroupMember>>>() {
-            };
+            membersTypeRef
+            = new ParameterizedTypeReference<Resources<Resource<GroupMember>>>() {
+    };
     private static ParameterizedTypeReference<Resource<GroupMember>>
-            memberTypeRef =
-            new ParameterizedTypeReference<Resource<GroupMember>>() {
-            };
+            memberTypeRef
+            = new ParameterizedTypeReference<Resource<GroupMember>>() {
+    };
     @Override
     public Resource<GroupMember> create(GroupMember member) {
         String url = getTraverson().follow("members").asLink().getHref();
@@ -35,7 +35,6 @@ public class GroupMemberService extends AbstractDataService implements GroupMemb
     public void delete(String id) {
         String url = getTraverson().follow("members").asLink().getHref();
         dataServiceClient.delete(url + "/" + id);
-        // TODO process status
     }
     @Override
     public Resources<Resource<GroupMember>> findAll() {
@@ -45,7 +44,7 @@ public class GroupMemberService extends AbstractDataService implements GroupMemb
     public Resources<Resource<GroupMember>> findByMemberOfGroup(String groupName) {
         return getTraverson().follow("members")
                              .follow(rel("search"))
-                             .follow(rel("findByMemberOfgroup_GroupName").withParameter("groupName", groupName))
+                             .follow(rel("findByGroup_GroupName").withParameter("groupName", groupName))
                              .toObject(membersTypeRef);
     }
     @Override
@@ -75,7 +74,10 @@ public class GroupMemberService extends AbstractDataService implements GroupMemb
     public Resource<GroupMember> patch(String id, GroupMember member) {
         String url = getTraverson().follow("members").asLink().getHref();
         HttpEntity<GroupMember> request = new HttpEntity<GroupMember>(member);
-        ResponseEntity<Resource<GroupMember>> response = dataServiceClient.exchange(url + "/" + id, HttpMethod.PATCH, request, memberTypeRef);
+        ResponseEntity<Resource<GroupMember>> response = dataServiceClient.exchange(url + "/" + id,
+                HttpMethod.PATCH,
+                request,
+                memberTypeRef);
         return response.getBody();
     }
 }

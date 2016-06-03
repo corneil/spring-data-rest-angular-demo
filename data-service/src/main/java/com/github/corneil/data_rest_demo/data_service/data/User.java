@@ -1,6 +1,6 @@
-package com.github.corneil.data_rest_demo.initial.data;
+package com.github.corneil.data_rest_demo.data_service.data;
 
-import org.springframework.format.annotation.DateTimeFormat;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,14 +10,17 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+
+import org.hibernate.validator.constraints.Email;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "users", schema = "sd")
-public class UserInfo {
+public class User {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date dateOfBirth;
+    @Email
     private String emailAddress;
     @NotNull
     private String fullName;
@@ -27,10 +30,10 @@ public class UserInfo {
     @NotNull
     @Column(unique = true)
     private String userId;
-    public UserInfo() {
+    public User() {
         super();
     }
-    public UserInfo(String userId, String fullName) {
+    public User(String userId, String fullName) {
         super();
         this.userId = userId;
         this.fullName = fullName;
@@ -75,7 +78,7 @@ public class UserInfo {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        UserInfo userInfo = (UserInfo) o;
-        return userId != null ? userId.equals(userInfo.userId) : userInfo.userId == null;
+        User user = (User) o;
+        return userId != null ? userId.equals(user.userId) : user.userId == null;
     }
 }

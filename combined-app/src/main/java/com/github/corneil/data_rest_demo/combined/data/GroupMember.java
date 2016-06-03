@@ -24,10 +24,10 @@ public class GroupMember {
     private Long id;
     @NotNull
     @ManyToOne(cascade = {CascadeType.REFRESH})
-    @JoinColumn(name = "user_info")
+    @JoinColumn(name = "user_a")
     private User user;
     @NotNull
     @ManyToOne(cascade = {CascadeType.REFRESH})
-    @JoinColumn(name = "group_info")
+    @JoinColumn(name = "group_a")
     private Group group;
 }

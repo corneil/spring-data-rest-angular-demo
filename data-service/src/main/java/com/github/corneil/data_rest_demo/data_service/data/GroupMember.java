@@ -4,6 +4,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -18,19 +19,21 @@ public class GroupMember {
     private Long id;
     @NotNull
     @ManyToOne(cascade = { CascadeType.REFRESH })
-    private UserInfo member;
+    @JoinColumn(name = "user_a")
+    private User user;
     @NotNull
     @ManyToOne(cascade = { CascadeType.REFRESH })
-    private GroupInfo memberOfgroup;
+    @JoinColumn(name = "group_a")
+    private Group group;
 
     public GroupMember() {
         super();
     }
 
-    public GroupMember(GroupInfo memberOfgroup, UserInfo member, Boolean enabled) {
+    public GroupMember(Group group, User user, Boolean enabled) {
         super();
-        this.memberOfgroup = memberOfgroup;
-        this.member = member;
+        this.group = group;
+        this.user = user;
         this.enabled = enabled;
     }
 
@@ -50,26 +53,26 @@ public class GroupMember {
         this.id = id;
     }
 
-    public UserInfo getMember() {
-        return member;
+    public User getUser() {
+        return user;
     }
 
-    public void setMember(UserInfo member) {
-        this.member = member;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public GroupInfo getMemberOfgroup() {
-        return memberOfgroup;
+    public Group getGroup() {
+        return group;
     }
 
-    public void setMemberOfgroup(GroupInfo memberOfgroup) {
-        this.memberOfgroup = memberOfgroup;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     @Override
     public int hashCode() {
-        int result = member != null ? member.hashCode() : 0;
-        result = 31 * result + (memberOfgroup != null ? memberOfgroup.hashCode() : 0);
+        int result = user != null ? user.hashCode() : 0;
+        result = 31 * result + (group != null ? group.hashCode() : 0);
         return result;
     }
 
@@ -80,9 +83,9 @@ public class GroupMember {
         if (o == null || getClass() != o.getClass())
             return false;
         GroupMember that = (GroupMember) o;
-        if (member != null ? !member.equals(that.member) : that.member != null)
+        if (user != null ? !user.equals(that.user) : that.user != null)
             return false;
-        return memberOfgroup != null ? memberOfgroup.equals(that.memberOfgroup) : that.memberOfgroup == null;
+        return group != null ? group.equals(that.group) : that.group == null;
     }
 
     @Override
@@ -90,11 +93,11 @@ public class GroupMember {
         final StringBuilder sb = new StringBuilder("GroupMember{");
         sb.append("id=").append(id);
         sb.append(", enabled=").append(enabled);
-        if (member != null) {
-            sb.append(", member=").append(member.getUserId());
+        if (user != null) {
+            sb.append(", user=").append(user.getUserId());
         }
-        if (memberOfgroup != null) {
-            sb.append(", memberOfgroup=").append(memberOfgroup.getGroupName());
+        if (group != null) {
+            sb.append(", group=").append(group.getGroupName());
         }
         sb.append('}');
         return sb.toString();

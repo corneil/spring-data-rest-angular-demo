@@ -1,5 +1,5 @@
 <md-content layout="column" flex class="relative" layout-fill role="main" ng-cloak>
-	<md-toolbar md-scroll-shrink="false">
+	<md-toolbar>
 		<div class="md-toolbar-tools">
 			<md-button class="md-icon-button" aria-label="Open SideNav" ng-click="openSidenav()">
 				<md-icon md-svg-icon="navigation:ic_menu"></md-icon>
@@ -22,35 +22,38 @@
 			</md-button>
 		</div>
 	</md-toolbar>
-	<div class="main-content" layoyt-fill>
-	<md-table-container class="md-whiteframe-12dp">
-		<table md-table md-row-select="true" data-ng-model="selected" multiple="true" md-progress="promise">
-			<thead md-head md-order="groupOrder">
-			<tr md-row>
-				<th md-column>Avatar</th>
-				<th md-column md-order-by="groupName">Name</th>
-				<th md-column md-order-by="description">Description</th>
-				<th md-column md-order-by="groupOwner">Owner</th>
-			</tr>
-			</thead>
-			<tbody md-body>
-			<tr md-row md-select="group" md-select-id="groupName" md-auto-select="true" ng-repeat="group in groups">
-				<td md-cell>
-					<div style="max-width: 48px">
-						<img src="/assets/groups/{{group.groupName}}.svg" width="100%" height="auto" aria-label="{{group.description}}"/>
-					</div>
-				</td>
-				<td md-cell><span ng-bind="group.groupName"></span></td>
-				<td md-cell><span ng-bind="group.description"></span></td>
-				<td md-cell>
-					<span ng-bind="group._groupOwner.userId"></span>
-					<em ng-bind="' (' + group._groupOwner.fullName + ')'"></em>
-				</td>
-			</tr>
-			</tbody>
-		</table>
-	</md-table-container>
-	</div>
+	<md-content class="main-content">
+		<md-table-container layout-fill class="md-whiteframe-12dp">
+			<table md-table md-row-select="true" data-ng-model="selected" multiple="true" md-progress="promise">
+				<thead md-head md-order="groupOrder">
+				<tr md-row>
+					<th md-column>Avatar</th>
+					<th md-column md-order-by="groupName">Name</th>
+					<th md-column md-order-by="description">Description</th>
+					<th md-column md-order-by="groupOwner">Owner</th>
+				</tr>
+				</thead>
+				<tbody md-body>
+				<tr md-row md-select="group" md-select-id="groupName" md-auto-select="true" ng-repeat="group in groups">
+					<td md-cell>
+						<div style="max-width: 48px">
+							<img src="/assets/groups/{{group.groupName}}.svg"
+							     width="100%"
+							     height="auto"
+							     aria-label="{{group.description}}"/>
+						</div>
+					</td>
+					<td md-cell><span ng-bind="group.groupName"></span></td>
+					<td md-cell><span ng-bind="group.description"></span></td>
+					<td md-cell>
+						<span ng-bind="group._groupOwner.userId"></span>
+						<em ng-bind="' (' + group._groupOwner.fullName + ')'"></em>
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</md-table-container>
+	</md-content>
 	<md-button class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="addGroup($event)">
 		<md-icon md-svg-icon="content:ic_add"></md-icon>
 	</md-button>

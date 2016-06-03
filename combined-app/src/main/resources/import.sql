@@ -29,13 +29,13 @@ insert into sd.groups(id, group_name, description, group_owner) values (8, 'mand
 insert into sd.groups(id, group_name, description, group_owner) values (9, 'resistance', 'Resistance', 10)
 
 -- Group Members
-insert into sd.group_members(user_info, group_info, enabled) values (3, 1, 1) -- padme, naboo
-insert into sd.group_members(user_info, group_info, enabled) values (6, 1, 1) -- palpatine, naboo
-insert into sd.group_members(user_info, group_info, enabled) values (6, 4, 1) -- palpatine, republic
+insert into sd.group_members(user_a, group_a, enabled) values (3, 1, 1) -- padme, naboo
+insert into sd.group_members(user_a, group_a, enabled) values (6, 1, 1) -- palpatine, naboo
+insert into sd.group_members(user_a, group_a, enabled) values (6, 4, 1) -- palpatine, republic
 
-insert into sd.group_members(user_info, group_info, enabled) values (2, 2, 1) -- quigon, jedi-knights
-insert into sd.group_members(user_info, group_info, enabled) values (1, 2, 1) -- ben, jedi-knights
-insert into sd.group_members(user_info, group_info, enabled) values (2, 3, 1) -- quigon, jedi-masters
-insert into sd.group_members(user_info, group_info, enabled) values (5, 2, 1) -- yoda, jedi-knights
-insert into sd.group_members(user_info, group_info, enabled) values (5, 3, 1) -- yoda, jedi-masters
+insert into sd.group_members(user_a, group_a, enabled) values (2, 2, 1) -- quigon, jedi-knights
+insert into sd.group_members(user_a, group_a, enabled) values (1, 2, 1) -- ben, jedi-knights
+insert into sd.group_members(user_a, group_a, enabled) values (2, 3, 1) -- quigon, jedi-masters
+insert into sd.group_members(user_a, group_a, enabled) values (5, 2, 1) -- yoda, jedi-knights
+insert into sd.group_members(user_a, group_a, enabled) values (5, 3, 1) -- yoda, jedi-masters
 

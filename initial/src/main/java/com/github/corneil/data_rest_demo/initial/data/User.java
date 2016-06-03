@@ -1,6 +1,6 @@
-package com.github.corneil.data_rest_demo.data_service.data;
+package com.github.corneil.data_rest_demo.initial.data;
 
-import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,12 +10,11 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import java.util.Date;
 
 @Entity
 @Table(name = "users", schema = "sd")
-public class UserInfo {
+public class User {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private Date dateOfBirth;
@@ -28,10 +27,10 @@ public class UserInfo {
     @NotNull
     @Column(unique = true)
     private String userId;
-    public UserInfo() {
+    public User() {
         super();
     }
-    public UserInfo(String userId, String fullName) {
+    public User(String userId, String fullName) {
         super();
         this.userId = userId;
         this.fullName = fullName;
@@ -76,7 +75,7 @@ public class UserInfo {
             return true;
         if (o == null || getClass() != o.getClass())
             return false;
-        UserInfo userInfo = (UserInfo) o;
-        return userId != null ? userId.equals(userInfo.userId) : userInfo.userId == null;
+        User user = (User) o;
+        return userId != null ? userId.equals(user.userId) : user.userId == null;
     }
 }

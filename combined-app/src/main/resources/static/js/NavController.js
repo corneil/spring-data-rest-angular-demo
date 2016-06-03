@@ -24,15 +24,6 @@ var mainMenu = [
         href: '/members',
         templateName: 'templates/members.html',
         controller: 'MemberController'
-    },
-    {
-        name: 'themes',
-        title: 'Themes',
-        type:'svg',
-        icon: 'image:ic_color_lens',
-        href: '/themes',
-        templateName: 'templates/themes.html',
-        controller: 'ThemeController'
     }
 ];
 var adminMenu = [
@@ -62,6 +53,15 @@ var adminMenu = [
         href: '/admin/h2-console',
         templateName: 'templates/h2-console.html',
         controller: 'NavController'
+    },
+    {
+        name: 'themes',
+        title: 'Themes',
+        type:'svg',
+        icon: 'image:ic_color_lens',
+        href: '/themes',
+        templateName: 'templates/themes.html',
+        controller: 'ThemeController'
     }
 ];
 function configureRoutes($routeProvider) {

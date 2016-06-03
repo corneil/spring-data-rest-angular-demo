@@ -24,7 +24,7 @@ public class SpringDataRestAngularDemoApplication extends SpringBootServletIniti
         List<String> urlPatterns = new ArrayList<String>();
         urlPatterns.add("/users/*");
         urlPatterns.add("/groups/*");
-        urlPatterns.add("/group-member/*");
+        urlPatterns.add("/members/*");
         registrationBean.setUrlPatterns(urlPatterns);
         return registrationBean;
     }
