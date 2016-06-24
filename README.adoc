@@ -83,6 +83,7 @@ link:http://localhost:8080/swagger-ui.html[]
 
 ++++
 <a alt="Buy me Coffee" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=corneil%2eduplessis%40gmail%2ecom&lc=ZA&currency_code=USD&bn=PP%2dDonationsBF%3abuy%2dme%2dcoffee%2epng%3aNonHosted">
-<img width="64px" height="64px" src="https://raw.githubusercontent.com/corneil/spring-data-rest-angular-demo/master/buy-me-coffee.png"><img>
+<img width="64px" height="64px" src="https://raw.githubusercontent.com/corneil/spring-data-rest-angular-demo/master/buy-me-coffee.png"><img><br/>
+<span><small>Buy me Coffee</small></span>
 </a>
 ++++
