@@ -71,11 +71,20 @@ To run data-service project:
 ```
 link:http://localhost:8888[]
 
+=== Web Application
 To run web application:
 ```
 ./gradlew :web-app:bootRun
 ```
-=== Local Web Application
+
+link:http://localhost:8080[]
+
+=== Final Application
+To run the final combined application:
+```
+./gradlew :combined-app:bootRun
+```
+
 link:http://localhost:8080[]
 
 === Swagger UI
