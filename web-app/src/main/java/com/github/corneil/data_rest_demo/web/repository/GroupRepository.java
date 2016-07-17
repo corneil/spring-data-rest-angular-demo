@@ -1,11 +1,11 @@
-package com.github.corneil.data_rest_demo.combined.repository;
+package com.github.corneil.data_rest_demo.web.repository;
 
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
 
-import com.github.corneil.data_rest_demo.combined.data.Group;
+import com.github.corneil.data_rest_demo.web.data.Group;
 import org.springframework.data.rest.core.annotation.RestResource;
 
 @RepositoryRestResource(collectionResourceRel = "groups", itemResourceRel = "group", path = "groups")

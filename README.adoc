@@ -15,7 +15,6 @@ This project shows how far you can get by using Spring Data Rest without adding 
 * link:http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html[Spring Web MVC] - 4.2.5
 * link:https://angularjs.org[AngularJS] - 1.5.5
 * link:https://material.angularjs.org[Angular Material] - 1.0.8
-* link:https://github.com/daniel-nagy/md-data-table[Angular Material Design Data Table] - 0.10.3
 * link:https://github.com/wallin/angular-gravatar[Angular Gravatar] - 0.4.1
 * link:https://github.com/google/material-design-icons[Material Design Icons] - 2.2.0
 
@@ -41,19 +40,13 @@ A lot of the complexity has been collapse to show the essential relationships be
 
 image::src/docs/images/spring-data-rest-demo-components-initial.png[Initial Component Model]
 
-== ToDo
-* [X] Delete User(s) with prompt indicating impact.
-* [X] Validate User input in dialog
-* [X] Delete Group(s) with prompt indicating impact.
-* [X] Validate Group input
-* [X] Group Members
-
 == Running
 
 Checkout the project:
 `git clone https://github.com/corneil/spring-data-rest-angular-demo.git`
 
 === Data Service
+
 To run data-service project:
 ```
 ./gradlew :data-service:bootRun
@@ -61,6 +54,8 @@ To run data-service project:
 link:http://localhost:8888[]
 
 === Web Application
+
+The Web Application is an evolution of the data-server project and contains UI related code as well.
 To run web application:
 ```
 ./gradlew :web-app:bootRun
@@ -69,6 +64,13 @@ To run web application:
 * link:http://localhost:8080[]
 * link:http://localhost:8080/swagger-ui.html[]
 * link:http://localhost:8080/rest[]
+
+== ToDo
+* [X] Delete User(s) with prompt indicating impact.
+* [X] Validate User input in dialog
+* [X] Delete Group(s) with prompt indicating impact.
+* [X] Validate Group input
+* [X] Group Members
 
 ++++
 <br/><br/>

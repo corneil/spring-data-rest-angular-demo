@@ -1,4 +1,4 @@
-package com.github.corneil.data_rest_demo.combined.config;
+package com.github.corneil.data_rest_demo.web.config;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 

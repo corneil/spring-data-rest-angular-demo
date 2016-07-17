@@ -1,8 +1,8 @@
-package com.github.corneil.data_rest_demo.combined.repository;
+package com.github.corneil.data_rest_demo.web.repository;
 
-import com.github.corneil.data_rest_demo.combined.data.Group;
-import com.github.corneil.data_rest_demo.combined.data.GroupMember;
-import com.github.corneil.data_rest_demo.combined.data.User;
+import com.github.corneil.data_rest_demo.web.data.Group;
+import com.github.corneil.data_rest_demo.web.data.GroupMember;
+import com.github.corneil.data_rest_demo.web.data.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

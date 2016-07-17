@@ -1,6 +1,6 @@
-package com.github.corneil.data_rest_demo.combined.repository;
+package com.github.corneil.data_rest_demo.web.repository;
 
-import com.github.corneil.data_rest_demo.combined.data.User;
+import com.github.corneil.data_rest_demo.web.data.User;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;

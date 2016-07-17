@@ -1,12 +1,12 @@
 @startuml
 
-class UserInfo << entity >> {
+class User << entity >> {
     userId: String
     fullName: String
     dateOfBirth: Date
     emailAddress: String
 }
-class GroupInfo << entity >> {
+class Group << entity >> {
     groupName: String
     description: String
 }
@@ -14,7 +14,7 @@ class GroupMember << entity >> {
     enabled: boolean
 }
 
-GroupMember -right-> GroupInfo: memberOfgroup
-GroupMember -up-> UserInfo: member
+GroupMember -right-> Group: memberOfgroup
+GroupMember -up-> User: member
 
 @enduml

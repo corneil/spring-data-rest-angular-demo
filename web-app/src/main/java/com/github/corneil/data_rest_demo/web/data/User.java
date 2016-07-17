@@ -1,4 +1,4 @@
-package com.github.corneil.data_rest_demo.combined.data;
+package com.github.corneil.data_rest_demo.web.data;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

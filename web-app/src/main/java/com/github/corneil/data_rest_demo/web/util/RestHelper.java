@@ -1,6 +1,5 @@
-package com.github.corneil.data_rest_demo.combined.util;
+package com.github.corneil.data_rest_demo.web.util;
 
-import org.springframework.hateoas.Link;
 import org.springframework.util.Assert;
 
 /**

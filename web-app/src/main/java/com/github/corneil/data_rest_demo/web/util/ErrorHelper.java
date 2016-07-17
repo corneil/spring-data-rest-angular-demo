@@ -1,4 +1,4 @@
-package com.github.corneil.data_rest_demo.combined.util;
+package com.github.corneil.data_rest_demo.web.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -1,4 +1,4 @@
-package com.github.corneil.data_rest_demo.combined;
+package com.github.corneil.data_rest_demo.web;
 
 import com.github.corneil.data_rest_demo.common.filter.RequestLoggingFilter;
 import org.springframework.boot.SpringApplication;

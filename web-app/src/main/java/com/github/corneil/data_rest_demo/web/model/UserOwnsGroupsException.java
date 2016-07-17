@@ -1,4 +1,4 @@
-package com.github.corneil.data_rest_demo.combined.model;
+package com.github.corneil.data_rest_demo.web.model;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

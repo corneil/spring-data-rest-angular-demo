@@ -61,7 +61,7 @@ dependencies {
 }
 
 bootRepackage {
-    mainClass = 'com.github.corneil.data_rest_demo.web_app.SpringDataRestAngularDemoApplication'
+    mainClass = 'com.github.corneil.data_rest_demo.web.SpringDataRestAngularDemoApplication'
 }
 
 bootRun {

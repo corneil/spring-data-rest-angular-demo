@@ -1,8 +1,8 @@
-package com.github.corneil.data_rest_demo.combined.model;
+package com.github.corneil.data_rest_demo.web.model;
 
-import com.github.corneil.data_rest_demo.combined.data.User;
-import com.github.corneil.data_rest_demo.combined.repository.GroupMemberRepository;
-import com.github.corneil.data_rest_demo.combined.repository.GroupRepository;
+import com.github.corneil.data_rest_demo.web.data.User;
+import com.github.corneil.data_rest_demo.web.repository.GroupMemberRepository;
+import com.github.corneil.data_rest_demo.web.repository.GroupRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

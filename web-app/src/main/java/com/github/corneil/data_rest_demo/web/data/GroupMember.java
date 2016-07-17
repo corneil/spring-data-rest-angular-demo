@@ -1,4 +1,4 @@
-package com.github.corneil.data_rest_demo.combined.data;
+package com.github.corneil.data_rest_demo.web.data;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

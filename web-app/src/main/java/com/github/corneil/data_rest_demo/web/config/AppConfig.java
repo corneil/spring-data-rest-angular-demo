@@ -1,4 +1,4 @@
-package com.github.corneil.data_rest_demo.combined.config;
+package com.github.corneil.data_rest_demo.web.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -10,7 +10,7 @@ import org.springframework.validation.beanvalidation.MethodValidationPostProcess
 import org.springframework.web.client.RestTemplate;
 
 @Configuration
-@EnableJpaRepositories(basePackages = {"com.github.corneil.data_rest_demo.combined.repository"})
+@EnableJpaRepositories(basePackages = {"com.github.corneil.data_rest_demo.web.repository"})
 @ComponentScan(basePackages = {"com.github.corneil.data_rest_demo"})
 public class AppConfig {
 
