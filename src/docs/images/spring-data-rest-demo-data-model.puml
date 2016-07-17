@@ -3,8 +3,8 @@
 class User << entity >> {
     userId: String
     fullName: String
-    dateOfBirth: Date
     emailAddress: String
+    dateOfBirth: Date
 }
 class Group << entity >> {
     groupName: String
@@ -14,7 +14,7 @@ class GroupMember << entity >> {
     enabled: boolean
 }
 
-GroupMember -right-> Group: memberOfgroup
-GroupMember -up-> User: member
+GroupMember -right-> Group: group
+User <-up- GroupMember: user
 
 @enduml
