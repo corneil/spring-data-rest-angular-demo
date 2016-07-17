@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project xmlns:con="http://eviware.com/soapui/config"
+                    id="632b4e8b-3659-40ba-8321-692ff3db7114"
+                    activeEnvironment="Default"
+                    name="Spring Data Rest Demo"
+                    resourceRoot=""
+                    soapui-version="5.2.1"
+                    abortOnError="false"
+                    runType="SEQUENTIAL">
+	<con:settings/>
+	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	               xsi:type="con:RestService"
+	               id="1963a7ff-d534-451a-a897-90dca0c289a8"
+	               wadlVersion="http://wadl.dev.java.net/2009/02"
+	               name="http://localhost:8080"
+	               type="rest">
+		<con:settings/>
+		<con:definitionCache type="TEXT" rootPart=""/>
+		<con:endpoints>
+			<con:endpoint>http://localhost:8080</con:endpoint>
+		</con:endpoints>
+		<con:resource name="users" path="/users" id="5a9fbc6c-06cd-48c5-9103-56b44db4b88a">
+			<con:settings/>
+			<con:parameters/>
+			<con:method name="create" id="94415364-876e-454a-90a3-53aa8e9b6a74" method="POST">
+				<con:settings/>
+				<con:parameters/>
+				<con:representation type="FAULT">
+					<con:mediaType>application/hal+json;charset=UTF-8</con:mediaType>
+					<con:status>409 500</con:status>
+					<con:params/>
+					<con:element xmlns:user="http://localhost/users">user:Fault</con:element>
+				</con:representation>
+				<con:representation type="REQUEST">
+					<con:mediaType>application/json</con:mediaType>
+					<con:params/>
+				</con:representation>
+				<con:representation type="RESPONSE">
+					<con:mediaType>application/json</con:mediaType>
+					<con:status>201</con:status>
+					<con:params/>
+					<con:element>data</con:element>
+				</con:representation>
+				<con:request name="Create-JaneDoe"
+				             id="a8285e17-393d-494a-82a9-ff8b9ec371a4"
+				             mediaType="application/json"
+				             postQueryString="false">
+					<con:settings>
+						<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/>
+						</con:setting>
+					</con:settings>
+					<con:endpoint>http://localhost:8080</con:endpoint>
+					<con:request>{
+						"userId": "janedoe",
+						"emailAddress": "janedoe@email.com",
+						"fullName": "Jane Doe",
+						"dateOfBirth": "1971-02-02"
+						}
+					</con:request>
+					<con:originalUri>http://localhost/users</con:originalUri>
+					<con:credentials>
+						<con:authType>No Authorization</con:authType>
+					</con:credentials>
+					<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+					<con:jmsPropertyConfig/>
+					<con:parameters/>
+				</con:request>
+				<con:request name="Create-JohnDoe"
+				             id="a8285e17-393d-494a-82a9-ff8b9ec371a4"
+				             mediaType="application/json"
+				             postQueryString="false">
+					<con:settings>
+						<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/>
+						</con:setting>
+					</con:settings>
+					<con:endpoint>http://localhost:8080</con:endpoint>
+					<con:request>{
+						"userId": "johndoe",
+						"emailAddress": "johndoe@email.com",
+						"fullName": "John Doe",
+						"dateOfBirth": "1970-01-01"
+						}
+					</con:request>
+					<con:originalUri>http://localhost/users</con:originalUri>
+					<con:credentials>
+						<con:authType>No Authorization</con:authType>
+					</con:credentials>
+					<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+					<con:jmsPropertyConfig/>
+					<con:parameters/>
+				</con:request>
+			</con:method>
+		</con:resource>
+	</con:interface>
+	<con:testSuite id="51084a0b-e1f7-4611-b35c-2e74e3cc2836" name="CreateData">
+		<con:settings/>
+		<con:runType>SEQUENTIAL</con:runType>
+		<con:testCase id="6b2f5531-6562-40d6-878a-2d05e8818161"
+		              failOnError="true"
+		              failTestCaseOnErrors="true"
+		              keepSession="false"
+		              maxResults="0"
+		              name="CreateUser"
+		              searchProperties="true">
+			<con:settings/>
+			<con:testStep type="restrequest" name="create - Create-JaneDoe" id="1a1d6877-d0b4-444f-b323-4664e976bd9c">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				            service="http://localhost:8080"
+				            resourcePath="/users"
+				            methodName="create"
+				            xsi:type="con:RestRequestStep">
+					<con:restRequest name="create - Create-JaneDoe"
+					                 id="a8285e17-393d-494a-82a9-ff8b9ec371a4"
+					                 mediaType="application/json"
+					                 postQueryString="false">
+						<con:settings>
+							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+						</con:settings>
+						<con:endpoint>http://localhost:8080</con:endpoint>
+						<con:request>{
+							"userId": "janedoe",
+							"emailAddress": "janedoe@email.com",
+							"fullName": "Jane Doe",
+							"dateOfBirth": "1971-02-02"
+							}
+						</con:request>
+						<con:originalUri>http://localhost/users</con:originalUri>
+						<con:credentials>
+							<con:authType>No Authorization</con:authType>
+						</con:credentials>
+						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+						<con:jmsPropertyConfig/>
+						<con:parameters/>
+					</con:restRequest>
+				</con:config>
+			</con:testStep>
+			<con:testStep type="restrequest" name="create - Create-JohnDoe" id="8281e852-4275-45fd-98a8-48f063b8ceaf">
+				<con:settings/>
+				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+				            service="http://localhost:8080"
+				            resourcePath="/users"
+				            methodName="create"
+				            xsi:type="con:RestRequestStep">
+					<con:restRequest name="create - Create-JohnDoe"
+					                 id="a8285e17-393d-494a-82a9-ff8b9ec371a4"
+					                 mediaType="application/json"
+					                 postQueryString="false">
+						<con:settings>
+							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+						</con:settings>
+						<con:endpoint>http://localhost:8080</con:endpoint>
+						<con:request>{
+							"userId": "johndoe",
+							"emailAddress": "johndoe@email.com",
+							"fullName": "John Doe",
+							"dateOfBirth": "1970-01-01"
+							}
+						</con:request>
+						<con:originalUri>http://localhost/users</con:originalUri>
+						<con:credentials>
+							<con:authType>No Authorization</con:authType>
+						</con:credentials>
+						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+						<con:jmsPropertyConfig/>
+						<con:parameters/>
+					</con:restRequest>
+				</con:config>
+			</con:testStep>
+			<con:properties/>
+		</con:testCase>
+		<con:properties/>
+	</con:testSuite>
+	<con:properties/>
+	<con:wssContainer/>
+	<con:oAuth2ProfileContainer/>
+	<con:sensitiveInformation/>
+</con:soapui-project>

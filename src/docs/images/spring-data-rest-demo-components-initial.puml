@@ -24,7 +24,7 @@ package "AngularJS UI" {
     [MemberService] -> rest : http
 }
 
-package "Spring Data Rest Server" {
+package "Spring Data Rest Web Application" {
     [UserInfo] << entity >>
     [GroupInfo] << entity >>
     [GroupMember] << entity >>

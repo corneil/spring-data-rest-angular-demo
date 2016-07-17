@@ -55,6 +55,7 @@
                     $scope.users = users;
                 }, function (response) {
                     $log.error('Error response:' + response.status + ':' + response.statusText);
+                    NotificationService.toastError('Load error: ' + response.statusText, 'Close');
                 });
 
                 $scope.deleteUsers = function (ev) {

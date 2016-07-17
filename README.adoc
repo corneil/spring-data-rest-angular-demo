@@ -41,10 +41,6 @@ A lot of the complexity has been collapse to show the essential relationships be
 
 image::src/docs/images/spring-data-rest-demo-components-initial.png[Initial Component Model]
 
-== Refined Component Model
-
-image::src/docs/images/spring-data-rest-demo-components.png[Initial Component Model]
-
 == ToDo
 * [X] Delete User(s) with prompt indicating impact.
 * [X] Validate User input in dialog
@@ -56,13 +52,6 @@ image::src/docs/images/spring-data-rest-demo-components.png[Initial Component Mo
 
 Checkout the project:
 `git clone https://github.com/corneil/spring-data-rest-angular-demo.git`
-
-=== Initial Project
-To run initial project:
-```
-./gradlew :initial:bootRun
-```
-link:http://localhost:8080[]
 
 === Data Service
 To run data-service project:
@@ -77,18 +66,9 @@ To run web application:
 ./gradlew :web-app:bootRun
 ```
 
-link:http://localhost:8080[]
-
-=== Final Application
-To run the final combined application:
-```
-./gradlew :combined-app:bootRun
-```
-
-link:http://localhost:8080[]
-
-=== Swagger UI
-link:http://localhost:8080/swagger-ui.html[]
+* link:http://localhost:8080[]
+* link:http://localhost:8080/swagger-ui.html[]
+* link:http://localhost:8080/rest[]
 
 ++++
 <br/><br/>

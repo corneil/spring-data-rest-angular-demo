@@ -1,0 +1,18 @@
+@startuml
+
+package "AngularJS UI" {
+    [UserController] << controller >>
+    [UserService] << service >>
+    [UserController] -down-> [UserService]
+    [UserService] -right-> rest : http
+}
+
+package "Spring Data Rest Web Application" {
+    [User] << entity >>
+    [UserRepository] << repository >>
+    [UserRepository] -> [User]
+    rest - [Spring Data Rest]
+    [Spring Data Rest] --> [UserRepository]
+}
+
+@enduml

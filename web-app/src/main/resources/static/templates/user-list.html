@@ -1,0 +1,56 @@
+<md-content layout="column" flex class="relative" layout-fill role="main">
+	<md-toolbar>
+		<div class="md-toolbar-tools">
+			<md-button class="md-icon-button" aria-label="Open SideNav" ng-click="openSidenav()">
+				<md-icon md-svg-icon="navigation:ic_menu"></md-icon>
+			</md-button>
+			<h3>
+				<span>Users</span>
+			</h3>
+			<md-progress-circular class="md-accent md-hue-1"
+			                      flex-offset="5"
+			                      ng-show="users == undefined || users == null"
+			                      md-mode="indeterminate"
+			                      md-diameter="48"></md-progress-circular>
+			<span flex></span>
+			<md-button class="md-icon-button"
+			           ng-disabled="selected == undefined || selected == null || selected.length != 1"
+			           ng-click="editUser($event)"
+			           aria-label="Edit">
+				<md-icon md-svg-icon="editor:ic_mode_edit"></md-icon>
+			</md-button>
+			<md-button class="md-icon-button"
+			           aria-label="Delete"
+			           ng-click="deleteUsers($event)"
+			           ng-disabled="selected == undefined || selected == null || selected.length == 0">
+				<md-icon md-svg-icon="action:ic_delete"></md-icon>
+			</md-button>
+		</div>
+	</md-toolbar>
+	<md-content class="main-content">
+		<md-content layout="row" layout-wrap class="md-whiteframe-12dp">
+			<table>
+				<thead>
+					<tr>
+						<th>User Id</th>
+						<th>Name</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="user in users">
+						<td ng-bind="user.userId"></td>
+						<td ng-bind="user.fullName"></td>
+						<td>
+							<button ng-click="editUser($event, user)" value="Edit"></button>
+							<button ng-click="deleteUser($event, user)" value="Delete"></button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</md-content>
+	</md-content>
+	<md-button class="md-fab md-fab-bottom-right" aria-label="Add" ng-click="addUser($event)">
+		<md-icon md-svg-icon="content:ic_add"></md-icon>
+	</md-button>
+</md-content>
