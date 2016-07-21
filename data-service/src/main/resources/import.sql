@@ -14,9 +14,6 @@ insert into sd.users(id, user_id, date_of_birth, email_address, full_name) value
 insert into sd.users(id, user_id, date_of_birth, email_address, full_name) values (13, 'chewie', '1903-8-3', 'chewbacca@kashyyk.galaxy', 'Chewbacca')
 insert into sd.users(id, user_id, date_of_birth, email_address, full_name) values (14, 'boba', '1957-8-1', 'boba.fett@mandalore.galaxy', 'Boba Fett')
 
-
-
-
 -- Groups
 insert into sd.groups(id, group_name, description, group_owner) values (1, 'naboo', 'Naboo Royal House', 3)
 insert into sd.groups(id, group_name, description, group_owner) values (2, 'jedi-knights', 'Jedi Knights', 2)
