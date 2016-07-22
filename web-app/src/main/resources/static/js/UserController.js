@@ -147,7 +147,7 @@
                         bindToController: true,
                         UserService: UserService,
                         locals: {
-                            user: $scope.selectedUser,
+                            user: angular.copy($scope.selectedUser),
                             newUser: false
                         }
                     }).then(function (user) {
