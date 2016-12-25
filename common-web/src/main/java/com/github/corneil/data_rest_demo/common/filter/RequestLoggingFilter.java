@@ -335,7 +335,10 @@ public class RequestLoggingFilter implements Filter {
                 for (String name : wrappedResp.getHeaderNames()) {
                     logger.debug("\t{}={}", name, wrappedResp.getHeaders(name));
                 }
-                logger.debug("RESPONSE -> {}", new String(bytes));
+                String contentType = response.getContentType();
+                if(contentType != null && (contentType.startsWith("text") || contentType.contains("json"))) {
+                    logger.debug("RESPONSE -> {}", new String(bytes));
+                }
             } else {
                 chain.doFilter(sRequest, sResponse);
             }
