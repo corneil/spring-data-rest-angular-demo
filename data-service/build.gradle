@@ -1,7 +1,7 @@
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse-wtp'
-apply plugin: 'spring-boot'
+apply plugin: 'org.springframework.boot'
 
 description = 'Spring Data Rest Demo - Data Service'
 configurations {
