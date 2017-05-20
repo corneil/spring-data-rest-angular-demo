@@ -1,3 +1,7 @@
+plugins {
+    id "org.asciidoctor.convert" version "1.5.3"
+}
+
 apply plugin: 'java'
 apply plugin: 'idea'
 apply plugin: 'eclipse-wtp'
@@ -6,8 +10,12 @@ apply plugin: 'org.springframework.boot'
 description = 'Spring Data Rest Angular Demo - Combined App'
 configurations {
     providedRuntime
+    asciidoctor
 }
 
+ext {
+    snippetsDir = file('build/generated-snippets')
+}
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
@@ -40,24 +48,28 @@ dependencies {
     compile 'org.springframework.boot:spring-boot-starter-hateoas'
     compile 'org.springframework.boot:spring-boot-devtools'
     compile 'org.projectlombok:lombok'
-    compile 'javax.el:javax.el-api'
     compile 'io.springfox:springfox-swagger2'
     compile 'io.springfox:springfox-swagger-ui'
     compile 'com.jayway.jsonpath:json-path'
     compile 'com.jayway.jsonpath:json-path-assert'
     compile 'ch.qos.logback:logback-classic'
+    runtime 'org.atteo:evo-inflector:1.2.1'
     compile 'org.apache.httpcomponents:httpclient'
+    compile 'org.slf4j:slf4j-ext'
 
     compile('commons-dbcp:commons-dbcp') {
         exclude(module: 'commons-logging')
         exclude(module: 'xml-apis')
     }
 
+    asciidoctor 'org.springframework.restdocs:spring-restdocs-asciidoctor'
 
     runtime 'com.h2database:h2'
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
     testCompile 'org.springframework.boot:spring-boot-starter-test'
     testCompile 'org.springframework.restdocs:spring-restdocs-mockmvc'
+    testCompile 'org.springframework.restdocs:spring-restdocs-core'
+    testCompile 'junit:junit:4.12'
 }
 
 bootRepackage {
@@ -75,9 +87,19 @@ eclipse {
     }
 }
 
+test {
+    outputs.dir snippetsDir
+    testLogging.showStandardStreams = true
+    jvmArgs "-DsnippetsDir=$snippetsDir"
+}
+
+asciidoctor {
+    inputs.dir snippetsDir
+    dependsOn test
+}
 
 task cleanTestJpa(type: Delete) {
-    delete fileTree('.') {
+    delete fileTree('/tmp/h2/') {
         include 'demo-rest.*db'
     }
 }

@@ -11,7 +11,6 @@ import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @EnableJpaRepositories(basePackages = {"com.github.corneil.data_rest_demo.web.repository"})
-@ComponentScan(basePackages = {"com.github.corneil.data_rest_demo"})
 public class AppConfig {
 
     @Bean(name="dataServiceClient")

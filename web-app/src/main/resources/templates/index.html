@@ -22,7 +22,7 @@
 	</md-toolbar>
 	<md-list layout="column">
 		<md-list-item class="md-1-line" md-ink-ripple role="link" ng-repeat="item in mainMenu">
-			<md-button style="text-align: left" class="md-primary" flex="grow" ng-click="showMenu(item)">
+			<md-button style="text-align: left" class="md-primary" ng-click="showMenu(item)">
 				<img ng-if="item.type=='img'" class="icon-image" ng-src="/assets/img/{{item.icon}}" />
 				<md-icon ng-if="item.type=='svg'" md-svg-icon="{{item.icon}}" aria-label="{{item.title}}"></md-icon>
 				<span class="md-body-2" flex="grow" ng-bind="item.title"></span>
@@ -33,7 +33,7 @@
 	<md-subheader>Management</md-subheader>
 	<md-list layout="column">
 		<md-list-item class="md-1-line" md-ink-ripple role="link" ng-repeat="item in adminMenu">
-			<md-button style="text-align: left" class="md-primary" flex="grow" ng-click="showMenu(item)">
+			<md-button style="text-align: left" class="md-primary" ng-click="showMenu(item)">
 				<img ng-if="item.type=='img'" class="icon-image" ng-src="/assets/img/{{item.icon}}" />
 				<md-icon ng-if="item.type=='svg'" md-svg-icon="{{item.icon}}" aria-label="{{item.title}}"></md-icon>
 				<span class="md-body-2" flex="grow" ng-bind="item.title"></span>

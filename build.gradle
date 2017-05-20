@@ -1,9 +1,9 @@
 buildscript {
     ext {
-        springBootVersion = '1.4.2.RELEASE'
-        springPlatformVersion = 'Athens-SR1'
+        springBootVersion = '1.5.3.RELEASE'
+        springPlatformVersion = 'Athens-SR5'
         manifestVendor = 'com.github.corneil'
-        angularVersion = '1.5.9'
+        angularVersion = '1.6.4'
     }
     repositories {
         mavenLocal()
@@ -13,8 +13,7 @@ buildscript {
 }
 
 plugins {
-    id 'io.spring.dependency-management' version '0.6.1.RELEASE' // '1.0.0.RC1'
-    id 'org.springframework.boot' version '1.4.2.RELEASE'
+    id 'org.springframework.boot' version '1.5.3.RELEASE'
 }
 
 group 'com.github.corneil'

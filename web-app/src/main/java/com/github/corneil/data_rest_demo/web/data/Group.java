@@ -18,7 +18,7 @@ import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 @Entity
-@Table(name = "groups", schema = "sd")
+@Table(name = "user_groups", schema = "sd")
 @Data
 @EqualsAndHashCode(of = {"groupName"})
 @ToString(exclude = {"members"})
@@ -30,7 +30,7 @@ public class Group {
     private String groupName;
     @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "GROUP_OWNER")
+    @JoinColumn(name = "group_owner")
     private User groupOwner;
     @Id
     @GeneratedValue

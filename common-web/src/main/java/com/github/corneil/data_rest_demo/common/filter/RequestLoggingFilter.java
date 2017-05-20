@@ -13,6 +13,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.WriteListener;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.HttpServletResponse;
@@ -29,6 +30,7 @@ import java.util.Enumeration;
 /**
  * Created by Corneil on 2016/04/01.
  */
+@WebFilter("/rest/*")
 public class RequestLoggingFilter implements Filter {
     private static class BufferedRequestWrapper extends HttpServletRequestWrapper {
         byte[] buffer;
