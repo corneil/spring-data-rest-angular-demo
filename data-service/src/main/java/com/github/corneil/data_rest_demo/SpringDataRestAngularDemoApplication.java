@@ -1,33 +1,12 @@
 package com.github.corneil.data_rest_demo;
 
-import com.github.corneil.data_rest_demo.common.filter.RequestLoggingFilter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.context.embedded.FilterRegistrationBean;
-import org.springframework.boot.context.web.SpringBootServletInitializer;
-import org.springframework.context.annotation.Bean;
-
-import java.util.ArrayList;
-import java.util.List;
+import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
-public class SpringDataRestAngularDemoApplication extends SpringBootServletInitializer {
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(SpringDataRestAngularDemoApplication.class);
-    }
-    @Bean
-    public FilterRegistrationBean logFilter() {
-        FilterRegistrationBean registrationBean = new FilterRegistrationBean();
-        registrationBean.setFilter(new RequestLoggingFilter());
-        List<String> urlPatterns = new ArrayList<String>();
-        urlPatterns.add("/users/*");
-        urlPatterns.add("/groups/*");
-        urlPatterns.add("/members/*");
-        registrationBean.setUrlPatterns(urlPatterns);
-        return registrationBean;
-    }
+@ComponentScan(basePackages = {"com.github.corneil.data_rest_demo"})
+public class SpringDataRestAngularDemoApplication {
     public static void main(String[] args) {
         // Start the application
         SpringApplication.run(SpringDataRestAngularDemoApplication.class, args);

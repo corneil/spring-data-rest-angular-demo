@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -17,7 +18,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 @Entity
-@Table(name = "groups", schema = "sd")
+@Table(name = "user_groups", schema = "sd")
 @Data
 @EqualsAndHashCode(of = {"groupName"})
 @ToString(exclude = {"members"})
@@ -29,6 +30,7 @@ public class Group {
     private String groupName;
     @NotNull
     @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinColumn(name = "group_owner")
     private User groupOwner;
     @Id
     @GeneratedValue

@@ -39,7 +39,7 @@ dependencies {
         exclude(module: 'commons-logging')
         exclude(module: 'xml-apis')
     }
-    compile 'javax.el:javax.el-api'
+
     compile 'ch.qos.logback:logback-classic'
 
     runtime 'com.h2database:h2'

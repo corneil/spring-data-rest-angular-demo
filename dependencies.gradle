@@ -41,5 +41,6 @@ dependencyManagement {
         dependency 'org.springframework.restdocs:spring-restdocs-asciidoctor:1.2.1.RELEASE'
 
         dependency 'org.slf4j:slf4j-ext:1.7.25'
+        dependency 'com.google.guava:guava:18.0'
     }
 }

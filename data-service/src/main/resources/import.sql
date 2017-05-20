@@ -15,15 +15,15 @@ insert into sd.users(id, user_id, date_of_birth, email_address, full_name) value
 insert into sd.users(id, user_id, date_of_birth, email_address, full_name) values (14, 'boba', '1957-8-1', 'boba.fett@mandalore.galaxy', 'Boba Fett')
 
 -- Groups
-insert into sd.groups(id, group_name, description, group_owner) values (1, 'naboo', 'Naboo Royal House', 3)
-insert into sd.groups(id, group_name, description, group_owner) values (2, 'jedi-knights', 'Jedi Knights', 2)
-insert into sd.groups(id, group_name, description, group_owner) values (3, 'jedi-masters', 'Jedi Masters', 1)
-insert into sd.groups(id, group_name, description, group_owner) values (4, 'republic', 'Old Republic', 6)
-insert into sd.groups(id, group_name, description, group_owner) values (5, 'sith', 'Sith', 8)
-insert into sd.groups(id, group_name, description, group_owner) values (6, 'empire', 'Galactic Empire', 8)
-insert into sd.groups(id, group_name, description, group_owner) values (7, 'rebels', 'Rebel Alliance', 10)
-insert into sd.groups(id, group_name, description, group_owner) values (8, 'mandalorians', 'Mandalorians', 7)
-insert into sd.groups(id, group_name, description, group_owner) values (9, 'resistance', 'Resistance', 10)
+insert into sd.user_groups(id, group_name, description, group_owner) values (1, 'naboo', 'Naboo Royal House', 3)
+insert into sd.user_groups(id, group_name, description, group_owner) values (2, 'jedi-knights', 'Jedi Knights', 2)
+insert into sd.user_groups(id, group_name, description, group_owner) values (3, 'jedi-masters', 'Jedi Masters', 1)
+insert into sd.user_groups(id, group_name, description, group_owner) values (4, 'republic', 'Old Republic', 6)
+insert into sd.user_groups(id, group_name, description, group_owner) values (5, 'sith', 'Sith', 8)
+insert into sd.user_groups(id, group_name, description, group_owner) values (6, 'empire', 'Galactic Empire', 8)
+insert into sd.user_groups(id, group_name, description, group_owner) values (7, 'rebels', 'Rebel Alliance', 10)
+insert into sd.user_groups(id, group_name, description, group_owner) values (8, 'mandalorians', 'Mandalorians', 7)
+insert into sd.user_groups(id, group_name, description, group_owner) values (9, 'resistance', 'Resistance', 10)
 
 -- Group Members
 insert into sd.group_members(user_a, group_a, enabled) values (3, 1, 1) -- padme, naboo

@@ -10,7 +10,10 @@ configurations {
 dependencies {
     compile 'org.slf4j:slf4j-api'
     compile 'javax.servlet:javax.servlet-api:3.1.0'
-
+    compile 'org.hibernate:hibernate-core'
+    compile 'com.google.guava:guava'
+    compile 'org.projectlombok:lombok'
+    compile 'org.slf4j:slf4j-ext'
 
     webJarsBower 'org.webjars.bower:angular'
     webJarsBower 'org.webjars.bower:angular-route'
