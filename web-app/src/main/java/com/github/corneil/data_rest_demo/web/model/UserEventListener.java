@@ -10,7 +10,7 @@ import org.springframework.data.rest.core.event.AbstractRepositoryEventListener;
 import org.springframework.stereotype.Component;
 
 /**
- * Created by Corneil on 2016-05-04.
+ * @author Corneil du Plessis
  */
 @Component
 public class UserEventListener extends AbstractRepositoryEventListener<User> {

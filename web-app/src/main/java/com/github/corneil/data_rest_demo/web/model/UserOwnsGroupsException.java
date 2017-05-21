@@ -4,7 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Created by Corneil on 2016-05-04.
+ * @author Corneil du Plessis
  */
 @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
 public class UserOwnsGroupsException extends RuntimeException {

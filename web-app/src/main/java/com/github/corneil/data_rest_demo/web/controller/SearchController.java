@@ -2,22 +2,21 @@ package com.github.corneil.data_rest_demo.web.controller;
 
 import com.github.corneil.data_rest_demo.web.data.GroupMember;
 import com.github.corneil.data_rest_demo.web.data.User;
+import com.github.corneil.data_rest_demo.web.model.UserResources;
 import com.github.corneil.data_rest_demo.web.repository.GroupMemberRepository;
 import com.github.corneil.data_rest_demo.web.repository.UserRepository;
 import io.swagger.annotations.ApiModelProperty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.rest.webmvc.PersistentEntityResourceAssembler;
 import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.ResourceAssembler;
+import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.ResourceSupport;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;
@@ -26,17 +25,21 @@ import java.util.List;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.*;
 
 /**
- * Created by Corneil on 2017/05/13.
+ * @author Corneil du Plessis
  */
 @RepositoryRestController
-@RequestMapping(value = "/rest/search")
+@RequestMapping(path = "/rest/search")
 public class SearchController {
-	@Autowired
 	private UserRepository userRepository;
-	@Autowired
 	private GroupMemberRepository memberRepository;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@Autowired
+	public SearchController(UserRepository userRepository, GroupMemberRepository memberRepository) {
+		this.userRepository = userRepository;
+		this.memberRepository = memberRepository;
+	}
+
+	@RequestMapping(path = "/", method = RequestMethod.GET)
 	public ResponseEntity<ResourceSupport> get() throws MalformedURLException {
 		ResourceSupport result = new ResourceSupport();
 		result.add(linkTo(methodOn(SearchController.class).findUsers(null, null)).withRel("users"));
@@ -44,7 +47,8 @@ public class SearchController {
 		return ResponseEntity.ok(result);
 	}
 
-	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	@RequestMapping(path = "/users", method = RequestMethod.GET)
+	@ApiModelProperty(dataType = "com.github.corneil.data_rest_demo.web.model.UserResources")
 	public ResponseEntity<Resources<ResourceSupport>> findUsers(@RequestParam("input") String input, PersistentEntityResourceAssembler assembler) {
 		List<ResourceSupport> result = new ArrayList<>();
 		for (User user : userRepository.findLikeUserIdOrFullName(input)) {
@@ -54,7 +58,8 @@ public class SearchController {
 		return ResponseEntity.ok(new Resources<>(result, self));
 	}
 
-	@RequestMapping(value = "/members", method = RequestMethod.GET)
+	@RequestMapping(path = "/members", method = RequestMethod.GET)
+	@ApiModelProperty(dataType = "com.github.corneil.data_rest_demo.web.model.GroupMemberResources")
 	public ResponseEntity<Resources<ResourceSupport>> findMembers(@RequestParam("groupName") final String groupName,
 																  @RequestParam(name = "enabled", required = false) Boolean enabled,
 																  PersistentEntityResourceAssembler assembler) {
