@@ -38,19 +38,122 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @XSlf4j
 public class ApiDocumentation {
-    private MockMvc mockMvc;
-    private RestDocumentationResultHandler documentationHandler;
     @Rule
     public JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation();
     @Autowired
     private WebApplicationContext context;
+    private RestDocumentationResultHandler documentationHandler;
+    private MockMvc mockMvc;
 
     public static LinksSnippet links(LinkDescriptor... descriptors) {
-        return HypermediaDocumentation.links(halLinks(),linkWithRel("self").optional().description("Link to resource."), linkWithRel("profile").optional().ignored()).and(descriptors);
+        return HypermediaDocumentation.links(halLinks(),
+                linkWithRel("self").optional().description("Link to resource."),
+                linkWithRel("profile").optional().ignored()).and(descriptors);
     }
+
     public static LinksSnippet links() {
-        return HypermediaDocumentation.links(halLinks(),linkWithRel("self").optional().description("Link to resource."), linkWithRel("profile").optional().ignored());
+        return HypermediaDocumentation.links(halLinks(),
+                linkWithRel("self").optional().description("Link to resource."),
+                linkWithRel("profile").optional().ignored());
     }
+
+    @Test
+    public void groupFind() {
+        try {
+            this.mockMvc.perform(get("/rest/groups/search/findOneByGroupName").param("groupName", "rebels").contentType("application/hal+json"))
+                        .andExpect(status().isOk())
+                        .andDo(this.documentationHandler.document(links(linkWithRel("group").description("The <<resources-group-get, Group resource>>"),
+                                linkWithRel("groupOwner").description("The <<resources-user-get, Owner of Group>>"),
+                                linkWithRel("_groupOwner").description("Cacheable <<resources-user-get, Owner of Group>>"),
+                                linkWithRel("members").description("The <<resources-member-get, Members of Group resource>>")),
+                                requestParameters(parameterWithName("groupName").description("Name of group")),
+                                responseFields(groupResource(""))));
+        } catch (Throwable x) {
+            log.error("userSearchPartial:{}", x.toString(), x);
+        }
+    }
+
+    @Test
+    public void groupGet() {
+        try {
+            this.mockMvc.perform(get("/rest/groups/{id}", 1L).contentType("application/hal+json"))
+                        .andExpect(status().isOk())
+                        .andDo(this.documentationHandler.document(pathParameters(parameterWithName("id").description("Id of group")),
+                                links(linkWithRel("group").description("The <<resources-group-get, Group resource>>"),
+                                        linkWithRel("groupOwner").description("The <<resources-user-get, Owner of Group>>"),
+                                        linkWithRel("_groupOwner").description("Cacheable <<resources-user-get, Owner of Group>>"),
+                                        linkWithRel("members").description("The <<resources-member-get, Members of Group resource>>")),
+                                responseFields(groupResource(""))));
+        } catch (Throwable x) {
+            log.error("userSearchPartial:{}", x.toString(), x);
+        }
+    }
+
+    private List<FieldDescriptor> groupResource(String prefix) {
+        return Arrays.asList(subsectionWithPath(prefix + "_links").description("<<resources-get-group_links,Links>> to group related resources"),
+                fieldWithPath(prefix + "groupName").description("The group's unique name"),
+                fieldWithPath(prefix + "description").description("The groups's description"));
+    }
+
+    @Test
+    public void groupsList() {
+        try {
+            final List<FieldDescriptor> fieldDescriptors = new ArrayList<>();
+            fieldDescriptors.add(subsectionWithPath("_links").description("<<resources-groups-list_links,Links>> to resource"));
+            fieldDescriptors.addAll(groupsResponse("_embedded."));
+            this.mockMvc.perform(get("/rest/groups").contentType("application/hal+json"))
+                        .andExpect(status().isOk())
+                        .andDo(this.documentationHandler.document(links(linkWithRel("search").description(
+                                "The <<resources-groups-search, Users resource search>>")), responseFields(fieldDescriptors)));
+        } catch (Throwable x) {
+            log.error("userSearchPartial:{}", x.toString(), x);
+        }
+    }
+
+    private List<FieldDescriptor> groupsResponse(String prefix) {
+        List<FieldDescriptor> result = new ArrayList<>();
+        result.add(subsectionWithPath(prefix + "groups[]").description("The group resources"));
+        result.addAll(groupResource(prefix + "groups[]."));
+        return result;
+    }
+
+    @Test
+    public void index() {
+        try {
+            this.mockMvc.perform(get("/rest").contentType("application/hal+json"))
+                        .andExpect(status().isOk())
+                        .andDo(this.documentationHandler.document(responseFields(subsectionWithPath("_links").description(
+                                "<<resources-index-links,Links>> to other resources")),
+                                links(linkWithRel("users").description("The <<resources-users,Users resource>>"),
+                                        linkWithRel("groups").description("The <<resources-groups,Groups resource>>"),
+                                        linkWithRel("members").description("The <<resources-members,Members resource>>"))));
+        } catch (Throwable x) {
+            log.error("userSearchPartial:{}", x.toString(), x);
+        }
+    }
+
+    @Test
+    public void memberGet() {
+        try {
+            this.mockMvc.perform(get("/rest/members/{id}", 1L).contentType("application/hal+json"))
+                        .andExpect(status().isOk())
+                        .andDo(this.documentationHandler.document(pathParameters(parameterWithName("id").description("Id of member")),
+                                links(linkWithRel("members").description("The <<resources-member-get, Member resource>>"),
+                                        linkWithRel("user").description("The <<resources-user-get, User resource>>"),
+                                        linkWithRel("_user").description("Cacheable <<resources-user-get, User resource>>"),
+                                        linkWithRel("group").description("The <<resources-group-get, Group resource>>"),
+                                        linkWithRel("_group").description("Cacheable <<resources-group-get, Group resource>>")),
+                                responseFields(memberResourceFields(""))));
+        } catch (Throwable x) {
+            log.error("memberGet:{}", x.toString(), x);
+        }
+    }
+
+    private List<FieldDescriptor> memberResourceFields(final String prefix) {
+        return Arrays.asList(subsectionWithPath(prefix + "_links").description("<<resources-member-get_links,Links>> to Member related resources"),
+                fieldWithPath(prefix + "enabled").description("Indicator that group membership is enabled").type(JsonFieldType.BOOLEAN));
+    }
+
 
     @Before
     public void setUp() {
@@ -62,37 +165,22 @@ public class ApiDocumentation {
     }
 
     @Test
-    public void index() {
+    public void userGet() {
         try {
-            this.mockMvc.perform(get("/rest").contentType("application/hal+json"))
+            final List<FieldDescriptor> fieldDescriptors = new ArrayList<>();
+            fieldDescriptors.addAll(userResource(""));
+            this.mockMvc.perform(get("/rest/users/{id}", 1L).contentType("application/hal+json"))
                         .andExpect(status().isOk())
-                        .andDo(this.documentationHandler.document(
-                                responseFields(subsectionWithPath("_links").description(
-                                "<<resources-index-links,Links>> to other resources")),
-                                links(
-                                        linkWithRel("users").description("The <<resources-users,Users resource>>"),
-                                        linkWithRel("groups").description("The <<resources-groups,Groups resource>>"),
-                                        linkWithRel("members").description("The <<resources-members,Members resource>>"))));
+                        .andDo(this.documentationHandler.document(pathParameters(parameterWithName("id").description("Id of user")),
+                                links(linkWithRel("user").description("The <<resources-user-get, Users resource>>")),
+                                responseFields(fieldDescriptors)));
         } catch (Throwable x) {
-            log.error("userSearchPartial:{}", x.toString(), x);
-        }
-    }
-
-    @Test
-    public void usersList() {
-        try {
-            this.mockMvc.perform(get("/rest/users").contentType("application/hal+json"))
-                        .andExpect(status().isOk())
-                        .andDo(this.documentationHandler.document(links(
-                                linkWithRel("search").description("The <<resources-users-search, Users resource search>>")),
-                                responseFields(usersResponse("_embedded.users[]."))));
-        } catch (Throwable x) {
-            log.error("userSearchPartial:{}", x.toString(), x);
+            log.error("userGet:{}", x.toString(), x);
         }
     }
 
     private List<FieldDescriptor> userResource(String prefix) {
-        return Arrays.asList(subsectionWithPath("_links").description("<<resources-index-links,Links>> to other resources"),
+        return Arrays.asList(subsectionWithPath(prefix + "_links").description("<<resources-user-get_links,Links>> to other resources"),
                 fieldWithPath(prefix + "userId").description("The user's userId"),
                 fieldWithPath(prefix + "fullName").description("The user's full name and surname"),
                 fieldWithPath(prefix + "dateOfBirth").description("The user's date of birth"),
@@ -100,34 +188,59 @@ public class ApiDocumentation {
                 fieldWithPath(prefix + "hasImage").description("Indicator that user has an image").type(JsonFieldType.BOOLEAN));
     }
 
-    private List<FieldDescriptor> usersResponse(String prefix) {
-        List<FieldDescriptor> result = new ArrayList<>();
-        result.add(subsectionWithPath("_embedded.users[]").description("The user resources"));
-        result.addAll(userResource(prefix));
-        return result;
-    }
-
     @Test
-    public void userGet() {
+    public void usersList() {
         try {
-            this.mockMvc.perform(get("/rest/users/{id}", 1L).contentType("application/hal+json"))
+            final List<FieldDescriptor> fieldDescriptors = new ArrayList<>();
+            fieldDescriptors.add(subsectionWithPath("_links").description("<<resources-users-list_links,Links>> to related resources"));
+            fieldDescriptors.addAll(usersResponse("_embedded."));
+            this.mockMvc.perform(get("/rest/users").contentType("application/hal+json"))
                         .andExpect(status().isOk())
-                        .andDo(this.documentationHandler.document(pathParameters(parameterWithName("id").description("Substring to match")),
-                                links(linkWithRel("user").description("The <<resources-users-get, Users resource>>")),
-                                responseFields(userResource(""))));
+                        .andDo(this.documentationHandler.document(links(linkWithRel("search").description(
+                                "The <<resources-users-search, Users resource search>>")), responseFields(fieldDescriptors)));
         } catch (Throwable x) {
             log.error("userSearchPartial:{}", x.toString(), x);
         }
     }
 
+    private List<FieldDescriptor> usersResponse(String prefix) {
+        List<FieldDescriptor> result = new ArrayList<>();
+        result.add(subsectionWithPath(prefix + "users[]").description("The user resources"));
+        result.addAll(userResource(prefix + "users[]."));
+        return result;
+    }
+	@Test
+	public void searchMembers() {
+		try {
+			List<FieldDescriptor> fieldDescriptors = new ArrayList<>();
+			fieldDescriptors.add(subsectionWithPath("_links").description("<<resources-search-members_links,Links>> to resources"));
+			fieldDescriptors.addAll(memberResourceFields("_embedded.members[]."));
+			this.mockMvc.perform(get("/rest/search/members")
+									.param("groupName", "rebels")
+									.param("enabled","true")
+									.contentType("application/hal+json"))
+						.andExpect(status().isOk())
+						.andDo(this.documentationHandler.document(links(),
+							requestParameters(
+								parameterWithName("groupName").description("groupName of groups to find"),
+								parameterWithName("enabled").description("Optional indicator to find enabled or disabled groups").optional()),
+							responseFields(fieldDescriptors)));
+		} catch (Throwable x) {
+			log.error("membersGroupNameEnabled:{}", x.toString(), x);
+		}
+	}
+
     @Test
-    public void usersSearchPartial() {
+    public void searchUsers() {
         try {
-            this.mockMvc.perform(get("/rest/users/search/find").param("input", "luke").contentType("application/hal+json"))
+            final List<FieldDescriptor> fieldDescriptors = new ArrayList<>();
+            fieldDescriptors.add(subsectionWithPath("_links").description("<<resources-search-users_links,Links>> to related resources"));
+            fieldDescriptors.addAll(usersResponse("_embedded."));
+            this.mockMvc.perform(get("/rest/search/users").param("input", "luke").contentType("application/hal+json"))
                         .andExpect(status().isOk())
                         .andDo(this.documentationHandler.document(requestParameters(parameterWithName("input").description("Substring to match")),
                                 links(),
-                                responseFields(usersResponse("_embedded.users[]."))));
+                                responseFields(fieldDescriptors)));
         } catch (Throwable x) {
             log.error("userSearchPartial:{}", x.toString(), x);
         }

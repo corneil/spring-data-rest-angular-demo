@@ -1,4 +1,4 @@
-package com.github.corneil.data_rest_demo.web.util;
+package com.github.corneil.data_rest_demo.common.filter;
 
 import lombok.extern.slf4j.XSlf4j;
 import org.hibernate.boot.model.naming.Identifier;

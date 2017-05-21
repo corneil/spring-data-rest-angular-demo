@@ -85,7 +85,7 @@ The index provides the entry point into the service.
 
 A `GET /rest` request is used to access the index
 
-operation::index[snippets='response-fields,http-response,links']
+operation::index[snippets='response-fields,curl-request,http-response,links']
 
 
 
@@ -101,23 +101,61 @@ A `GET /rest/users` request will list all users.
 
 operation::users-list[snippets='response-fields,curl-request,http-response,links']
 
-[[resources-user-search]]
-=== Search for users
-
-A `GET /rest/users/find` request will find users matching a partial name
-
-operation::users-search-partial[snippets='response-fields,curl-request,http-response,links']
-
 [[resources-user-get]]
 === Get a user
 
 A `GET /rest/users/{id}` request will find a specific user
 
-operation::user-get[snippets='response-fields,curl-request,http-response,links']
+operation::user-get[snippets='path-parameters,response-fields,curl-request,http-response,links']
 
 [[resources-groups]]
 == Group
 
-[[resources-members]]
+[[resources-groups-list]]
+=== List all groups
 
+A `GET /rest/groups` request will list all groups.
+
+operation::groups-list[snippets='response-fields,curl-request,http-response,links']
+
+[[resources-group-get]]
+=== Get a group
+
+A `GET /rest/groups/{id}` request will find a specific group
+
+operation::group-get[snippets='path-parameters,response-fields,curl-request,http-response,links']
+
+[[resources-group-search]]
+=== Search for group
+
+A `GET /rest/groups/search/findOneByGroupName` request will find users matching a partial name
+
+operation::group-find[snippets='request-parameters,response-fields,curl-request,http-response,links']
+
+[[resources-members]]
 == Member
+
+[[resources-member-get]]
+=== Get a member
+
+A `GET /rest/members/{id}` request will find a specific group
+
+operation::member-get[snippets='path-parameters,response-fields,curl-request,http-response,links']
+
+
+[[resources-search]]
+== Searches
+
+[[resources-search-user]]
+=== Search for users
+
+A `GET /rest/search/users` request will find users matching a partial name
+
+operation::search-users[snippets='request-parameters,response-fields,curl-request,http-response,links']
+
+[[resources-search-members]]
+=== Find group members
+
+A `GET /rest/search/members` request will find members of a specified group with enabled indicator
+
+operation::search-members[snippets='request-parameters,response-fields,curl-request,http-response,links']

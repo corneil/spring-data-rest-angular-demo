@@ -15,6 +15,6 @@ public interface UserRepository extends CrudRepository<User, Long> {
     User findOneByUserId(@Param("userId") String userId);
     List<User> findByUserIdContainsIgnoreCase(@Param("userId") String userId);
     @Query("select u from User u where UPPER(u.userId) like UPPER(:#{'%' + #input.toUpperCase() + '%'}) or UPPER(u.fullName) like UPPER(:#{'%' + #input.toUpperCase() + '%'})")
-    @RestResource(rel = "find", path = "find", description = @Description("find users by fullname or userid containing input case-insensitive"))
+    @RestResource(exported = false)
     List<User> findLikeUserIdOrFullName(@Param("input") String input);
 }
