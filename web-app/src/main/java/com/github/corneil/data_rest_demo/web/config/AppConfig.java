@@ -7,6 +7,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
 import org.springframework.validation.beanvalidation.MethodValidationPostProcessor;
 
+/**
+ * @author Corneil du Plessis
+ */
 @Configuration
 @EnableJpaRepositories(basePackages = {"com.github.corneil.data_rest_demo.web.repository"})
 @Import({WebApplicationConfiguration.class, SwaggerConfiguration.class})

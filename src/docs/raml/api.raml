@@ -2,17 +2,9 @@
 title: Spring Data Rest Demo API
 version: v1
 protocols: [ HTTP ]
-baseUri: http://localhost/rest
-mediaType: application/hal+json
+baseUri: http://localhost/api
+mediaType: application/json
 types:
-  Link:
-    type: object
-    properties:
-        href: string
-  Links:
-    type: object
-    properties:
-        self: Link
   User:
     type: object
     properties:
@@ -21,101 +13,31 @@ types:
       fullName: string
       dateOfBirth: date-only
       hasImage: boolean
-      _links:
-        type: Links
-        properties:
-            user: Link
-  UserList:
-    type: object
-    properties:
-      _embedded:
-        properties:
-          users: User[]
-      _links:
-        type: Links
-        properties:
-          search: Link
-          profile: Link
   Group:
     type: object
     properties: # Add groupOwner and members
       description: string
       groupName: string
-      _links:
-        type: Links
-        properties:
-          group: Link
-          groupOwner: Link
-          _groupOwner: Link
-          members: Link
-  GroupList:
-    type: object
-    properties:
-      _embedded:
-        properties:
-          groups: Group[]
-      _links:
-        type: Links
-        properties:
-          search: Link
-          profile: Link
-  Member:
+      groupOwner: User
+  GroupMember:
     type: object
     properties: # Add user and group
       enabled: boolean
-      _links:
-        type: Links
-        properties:
-          member: Link
-          group: Link
-          user: Link
-          _group: Link
-          _user: Link
-  MemberList:
-      type: object
-      properties:
-        _embedded:
-          properties:
-            members: Member[]
-        _links:
-          type: Links
-          properties:
-            profile: Link
+      group: Group
+      user: User
 # Note the list of requests is not complete
-/:
-    get:
-        description: Indexes
-        responses:
-          200:
-            body:
-              application/json:
-                type: object
-                properties:
-                  _links:
-                    type: Links
-                    properties:
-                      users: Link
-                      groups: Link
-                      members: Link
-                      profile: Link
 /users:
-  get:
-    description: List all Users
+  post:
+    body:
+      type: User
+      description: Create a User
     responses:
       200:
         body:
-          type: UserList
+          type: User
 /users/{id}:
-  post:
-      description: Create a new User
-      body:
-        type: User
-      responses:
-        200:
-          body:
-            type: User
   get:
-    description: id is a provided in self link. Get a specific TodoItem
+    description: Get a User
     responses:
       200:
         body:
@@ -137,7 +59,7 @@ types:
           description: Delete operation completed
         404:
           description: User doesn't exist
-/users/search/find:
+/users/search:
   get:
     queryParameters:
       input:
@@ -146,51 +68,18 @@ types:
     responses:
       200:
         body:
-          type: UserList
-/groups:
+          type: User[]
+/members/search:
   get:
-    description: List all groups
-    body:
-      type: GroupList
-    responses:
-      200:
-        description: Returned the list of groups
-/groups/{id}:
-  get:
-    responses:
-      200:
-        body:
-          type: Group
-      404:
-        description: Group not found
-/groups/search/findOneByGroupName:
-  get:
+    description: Search for members of specified group
     queryParameters:
       groupName:
-        description: Group name to find
+        description: Name of Group
         type: string
+      enabled?:
+        description: If proveded will return members with same state
+        type: boolean
     responses:
       200:
         body:
-          type: Group
-      404:
-        description: Group not found
-/members/{id}:
-  get:
-    responses:
-      200:
-        body:
-          type: Member
-      404:
-        description: Member not found
-/members/search/findByGroup_GroupNameAndEnabledTrue:
-  get:
-    queryParameters:
-      groupName:
-        description: Group name to find
-        type: string
-    responses:
-      200:
-        body:
-          application/json:
-            type: MemberList
+          type: GroupMember[]

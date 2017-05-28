@@ -10,6 +10,9 @@ import org.springframework.data.rest.core.annotation.RestResource;
 
 import java.util.List;
 
+/**
+ * @author Corneil du Plessis
+ */
 @RepositoryRestResource(collectionResourceRel = "members", itemResourceRel = "members", path = "members")
 public interface GroupMemberRepository extends CrudRepository<GroupMember, Long> {
 	List<GroupMember> findByGroup_GroupName(@Param("groupName") String groupName);

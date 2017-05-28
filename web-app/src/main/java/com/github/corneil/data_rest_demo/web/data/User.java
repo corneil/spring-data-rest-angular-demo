@@ -17,25 +17,33 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+/**
+ * @author Corneil du Plessis
+ */
 @Entity
 @Table(name = "users", schema = "sd")
 @Data
 @EqualsAndHashCode(of = {"userId"})
 public class User {
-    @Temporal(TemporalType.DATE)
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
-    private Date dateOfBirth;
-    @Email
-    private String emailAddress;
-    @NotNull
-    private String fullName;
-    @Id
-    @GeneratedValue
-    private Long id;
-    @NotNull
-    @Column(unique = true)
-    private String userId;
-    @Transient
-    private boolean hasImage;
+	@Id
+	@GeneratedValue
+	private Long id;
+
+	@Temporal(TemporalType.DATE)
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
+	private Date dateOfBirth;
+
+	@Email
+	private String emailAddress;
+
+	@NotNull
+	private String fullName;
+
+	@NotNull
+	@Column(unique = true)
+	private String userId;
+
+	@Transient
+	private boolean hasImage;
 }

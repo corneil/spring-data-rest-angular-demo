@@ -74,51 +74,86 @@ not create URIs themselves, instead they should use the above-described links to
 = Resources
 
 
+[[resources-index]]
+== Index
+
+The index provides the entry point into the service.
+
+
+[[resources-index-access]]
+=== Accessing the index
+
+A `GET /rest` request is used to access the index
+
+operation::index[snippets='response-fields,curl-request,http-response,links']
+
 [[resources-users]]
 == User
 
 The User resources is represents users in the system
 
-[[resources-user-create]]
-A 'POST /simple/users' request with a user as the body will create a new user.
+[[resources-users-list]]
+=== Listing users
 
-operation::create-user[snippets='curl-request,response-fields,http-response']
+A `GET /rest/users` request will list all users.
+
+operation::users-list[snippets='response-fields,curl-request,http-response,links']
 
 [[resources-user-get]]
 === Get a user
 
-A `GET /simple/users/{id}` request will find a specific user.
+A `GET /rest/users/{id}` request will find a specific user
 
-operation::get-user[snippets='path-parameters,curl-request,response-fields,http-response']
+operation::user-get[snippets='path-parameters,response-fields,curl-request,http-response,links']
 
-[[resources-user-update]]
-=== Update a user
+[[resources-groups]]
+== Group
 
-A `PUT /simple/users/{id}` request will update a specific user.
+[[resources-groups-list]]
+=== List all groups
 
-operation::update-user[snippets='path-parameters,curl-request,response-fields,http-response']
+A `GET /rest/groups` request will list all groups.
 
-[[resources-user-delete]]
-=== Delete a user
+operation::groups-list[snippets='response-fields,curl-request,http-response,links']
 
-A `DELETE /simple/users/{id}` request will delete a specific user.
+[[resources-group-get]]
+=== Get a group
 
-operation::delete-user[snippets='path-parameters,curl-request,http-response']
+A `GET /rest/groups/{id}` request will find a specific group
+
+operation::group-get[snippets='path-parameters,response-fields,curl-request,http-response,links']
+
+[[resources-group-search]]
+=== Search for group
+
+A `GET /rest/groups/search/findOneByGroupName` request will find users matching a partial name
+
+operation::group-find[snippets='request-parameters,response-fields,curl-request,http-response,links']
+
+[[resources-members]]
+== Member
+
+[[resources-member-get]]
+=== Get a member
+
+A `GET /rest/members/{id}` request will find a specific group
+
+operation::member-get[snippets='path-parameters,response-fields,curl-request,http-response,links']
 
 
 [[resources-search]]
 == Searches
 
-[[resources-user-search]]
+[[resources-search-user]]
 === Search for users
 
-A `GET /simple/users/search` request will find users matching a partial name
+A `GET /rest/search/users` request will find users matching a partial name
 
-operation::search-user[snippets='request-parameters,curl-request,response-fields,http-response']
+operation::search-users[snippets='request-parameters,response-fields,curl-request,http-response,links']
 
 [[resources-search-members]]
 === Find group members
 
-A `GET /simple/members/search` request will find members of a specified group with enabled indicator
+A `GET /rest/search/members` request will find members of a specified group with enabled indicator
 
-operation::search-member[snippets='request-parameters,curl-request,response-fields,http-response']
+operation::search-members[snippets='request-parameters,response-fields,curl-request,http-response,links']
