@@ -8,14 +8,14 @@ This project shows how far you can get by using Spring Data Rest without adding 
 
 == Technologies Used
 
-* link:http://projects.spring.io/spring-boot[Spring Boot] - 1.3.5
-* link:http://projects.spring.io/spring-data-jpa[Spring Data JPA] - 1.9.4
-* link:http://projects.spring.io/spring-data-rest[Spring Data Rest] - 2.4.4
-* link:http://projects.spring.io/spring-hateoas[Spring HATEOAS] - 0.19.0
-* link:http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html[Spring Web MVC] - 4.2.5
-* link:https://angularjs.org[AngularJS] - 1.5.5
-* link:https://material.angularjs.org[Angular Material] - 1.0.8
-* link:https://github.com/wallin/angular-gravatar[Angular Gravatar] - 0.4.1
+* link:http://projects.spring.io/spring-boot[Spring Boot] - 1.5.3
+* link:http://projects.spring.io/spring-data-jpa[Spring Data JPA] - 1.11.3
+* link:http://projects.spring.io/spring-data-rest[Spring Data Rest] - 2.6.3
+* link:http://projects.spring.io/spring-hateoas[Spring HATEOAS] - 0.23.0
+* link:http://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html[Spring Web MVC] - 4.3.8
+* link:https://angularjs.org[AngularJS] - 1.6.4
+* link:https://material.angularjs.org[Angular Material] - 1.1.4
+* link:https://github.com/wallin/angular-gravatar[Angular Gravatar] - 0.4.2
 * link:https://github.com/google/material-design-icons[Material Design Icons] - 2.2.0
 
 == Design decisions
@@ -74,8 +74,5 @@ To run web application:
 
 ++++
 <br/><br/>
-<a alt="Buy me Coffee" href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=corneil%2eduplessis%40gmail%2ecom&lc=ZA&currency_code=USD&bn=PP%2dDonationsBF%3abuy%2dme%2dcoffee%2epng%3aNonHosted">
-<img width="48px" height="48px" src="https://raw.githubusercontent.com/corneil/spring-data-rest-angular-demo/master/buy-me-coffee.png"><img><br/>
-<span style="font-size: x-small">Buy me Coffee</span>
-</a>
+<a href='https://ko-fi.com/D1D37NFO' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi2.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 ++++
